@@ -1,0 +1,81 @@
+---
+layout: default
+title: Integrations - Handling Errors
+---
+
+.row
+  .col-sm-12
+    %h1 Handling Errors
+    %hr
+.row
+  .col-sm-8
+
+    %table.arguments
+      %thead
+        %tr
+          %th Error
+          %th Error Description
+          %th Code
+
+      %tbody
+        %tr
+          %td{:style => "text-align: left"} invalid_request
+          %td{:style => "text-align: left"} The request is missing a required parameter, includes an unsupported parameter value, or is otherwise malformed.
+          %td{:style => "text-align: right"} 400
+        %tr
+          %td{:style => "text-align: left"} unauthorized_client
+          %td{:style => "text-align: left"} The client is not authorized to request an access token using this method.
+          %td{:style => "text-align: right"} 401
+        %tr
+          %td{:style => "text-align: left"} access_denied
+          %td{:style => "text-align: left"} The user or authorization server denied the request.
+          %td{:style => "text-align: right"} 403
+        %tr
+          %td{:style => "text-align: left"} unsupported_response_type
+          %td{:style => "text-align: left"} The authorization server does not support this response type.
+          %td{:style => "text-align: right"} 400
+        %tr
+          %td{:style => "text-align: left"} invalid_scope
+          %td{:style => "text-align: left"} The requested scope is invalid, unknown, or malformed.
+          %td{:style => "text-align: right"} 400
+        %tr
+          %td{:style => "text-align: left"} server_error
+          %td{:style => "text-align: left"} The authorization server encountered an unexpected condition that prevented it from fulfilling the request.
+          %td{:style => "text-align: right"} &nbsp;
+        %tr
+          %td{:style => "text-align: left"} temporarily_unavailable
+          %td{:style => "text-align: left"} The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.
+          %td{:style => "text-align: right"} &nbsp;
+        %tr
+          %td{:style => "text-align: left"} missing_state
+          %td{:style => "text-align: left"} Client is not passing state param. This is required for your own protection.
+          %td{:style => "text-align: right"} 400
+        %tr
+          %td{:style => "text-align: left"} invalid_client
+          %td{:style => "text-align: left"} Client authentication failed
+          %td{:style => "text-align: right"} 401
+        %tr
+          %td{:style => "text-align: left"} invalid_grant
+          %td{:style => "text-align: left"} The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.
+          %td{:style => "text-align: right"} 400
+        %tr
+          %td{:style => "text-align: left"} unsupported_grant_type
+          %td{:style => "text-align: left"} The authorization grant type is not supported by the authorization server.
+          %td{:style => "text-align: right"} 400
+        %tr
+          %td{:style => "text-align: left"} invalid_token
+          %td{:style => "text-align: left"} The access token was revoked, has expired, or is invalid
+          %td{:style => "text-align: right"} 400
+
+
+    .note
+      Still to be published: List of validation errors and possible risk assessment errors
+
+
+  .col-sm-4
+
+:javascript
+  s2p.sectionClass = "integrations";
+  s2p.pageClass    = "errors";
+
+//TODO

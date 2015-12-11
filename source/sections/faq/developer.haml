@@ -1,0 +1,67 @@
+---
+layout: default
+title: Developer FAQ
+---
+
+
+.row
+  .col-sm-12
+    %h1 Developer FAQ
+    %hr
+
+.row
+  .col-sm-12
+
+    %h4 What are Client Applications for?
+    %p Client Applications allow you to have several sign2pay implementations across your online presence.
+
+    %p For instance: Your company operates a single store, yet you have both a mobile site and a native iOS application. Each of these properties are implemented independently. Client Applications allow for specific redirects and webhooks, to update only the databases you want.
+
+    %h4 What does 'Mode' mean for a Client Application?
+    %p The two main modes are <code>test</code> and <code>live</code>. As you can imagine, putting your Client Application into <code>test</code> mode allowa you to run through the entire sign2pay process without incurring any charges. Once you are ready to move past testing, complete our payment requirements and switch to <code>live</code> mode. This is just as it sounds - money will be processed.
+
+    %h4 Do I have to input my actual IBAN in test mode?
+    %p
+      When your Client Application is in test mode, any string starting with ZZ, (ie:
+      %code.menlo ZZ231234566
+      will circumvent the IBAN validation process. If you want to use your real IBAN, as long as you're in test mode, no money will be processed.
+
+    %h4 Do I need a redirect URI in the SMS method?
+    %p No! Customers will finish their purchase on their browsers after hitting the link in the SMS. You can use a webhook to get data back and update the status of your payment.
+
+    %h4 Where is my "Client ID" (or "Merchant ID" or "Client Secret")
+    .row
+      .col-sm-8
+        %p Sign in to your Merchant Admin. Under "Applications", select the Client Application you need credentials for. In the top right area of your screen, you will see <strong>Access Credentials</strong>. Click on it and the codes shall appear!
+      .col-sm-4
+        %aside.aside_screenshot
+          %a{href:"/images/screenshots/access_credentials.png", target:"_blank"}
+            %img{:src => "/images/screenshots/access_credentials.png"}/
+
+    %h4 How to encode these access credentials?
+    %p
+      It is quite important to keep your credentials private. The solution to do so is best explained
+      = succeed "(in the 'obtaining access token' tab)" do
+        %a{href:"/sections/integrations/approaches.html"}
+          here.
+
+
+    %h4 How do I test locally?
+    %p
+      To test sign2pay from a local environment, we recommend that you use a service such as ngrok.
+      = succeed 'is a quick tutorial if you are dealing with ngrok for the first time.' do
+        %a{href:"/sections/support/local_testing.html"}
+          Here
+
+
+    %h4 NOTHING IS WORKING. WHAT DO I DO??!?
+    %p
+      Don't be shy,
+      = succeed '!' do
+        %a{href:"mailto:support@sign2pay.com?subject=Give+me+a+Hand?"}
+          email us
+
+
+:javascript
+  s2p.sectionClass = "faq";
+  s2p.pageClass    = "developer";

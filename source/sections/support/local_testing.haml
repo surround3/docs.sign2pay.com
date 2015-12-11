@@ -1,0 +1,51 @@
+---
+layout: default
+title: Testing Locally
+---
+
+
+.row
+  .col-sm-12
+    %h1 Testing locally
+    %p By using a service such as ngrok, you can test on your machine.
+    %hr
+
+.row
+  .col-sm-12
+    %h4 1.Get ngrok
+    From
+    %a{href:"https://ngrok.com/download", target:"_blank"}
+      here
+
+
+    %h4 2.Place it in your app
+    %p at the root level
+
+    %h4 3.Launch on your local port
+    %p
+      From your terminal, run
+      %code.menlo $ ./ngrok http 3000
+      (or pick the port, you are using)
+
+
+    %h4 4.Test
+    %p
+      From the page that launches, get the
+      %code.menlo something.ngrok.io
+      and test your webhooks against that.
+
+    <hr>
+
+    %h4 Test incoming webhooks
+    %p
+      You can use
+      %a{ href:"https://requestb.in", target:"_blank" }
+        requestb.in.
+      Once you have created the bin. point the webhooks towards
+      %code.menlo http://requestb.in/something?inspect
+
+
+
+:javascript
+  s2p.sectionClass = "support";
+  s2p.pageClass    = "local_testing";

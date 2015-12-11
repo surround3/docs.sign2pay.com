@@ -1,0 +1,28 @@
+---
+layout: default
+title: Merchant Account - Invoicing
+---
+
+.row
+  .col-sm-12
+    %h1 Invoicing
+    %hr
+    %p
+      Whenever a payout occurs, you will receive two documents:
+    %p
+      \- The
+      %code.menlo Payment Settlement
+      will give you a detailed breakdown of the amount of transactions sign2pay processed and the amount of funds you will receive.
+    %p
+      \- The
+      %code.menlo Invoice
+      will detail our fees regarding the processed transactions. The merchant does not need to transfer funds, this invoice will be paid by deducting said fees from the funds processed for the merchant. No action is needed on the merchant's end.
+
+.row
+  .col-sm-8
+
+  .col-sm-4
+
+:javascript
+  s2p.sectionClass  = "account";
+  s2p.pageClass    = "invoicing";

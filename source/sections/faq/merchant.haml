@@ -1,0 +1,34 @@
+---
+layout: default
+title: Merchant FAQ
+---
+
+
+.row
+  .col-sm-12
+    %h1 Merchant FAQ
+    %hr
+
+.row
+  .col-sm-12
+
+    %h4 How important is it to validate your registration steps?
+    %p Extremely! If we do not have your VAT number, bank account number, legal documents, and if you haven't accepted the terms and conditions, we cannot make your application go 'live', and we won't be able to process payments.
+
+    %h4 What's the difference between Invoices and Purchases?
+    %p Whenever a customer picks sign2pay as a payment option, they will appear in Purchases (even if they don't complete the process). Invoices is where we display our invoices to you. Each invoice has a breakdown of the varaiable and set fees we keep on each of your succeesful payment.
+
+    %h4 How do I get my revenues on my bank account?
+    %p Whenever a customer of yours pays with sign2pay, the money lands on your merchant account. We then wait for 3 days (to make a larger transfer at once) and transfer the money directly into your account (a 'payout'). On your dashboard, you will see the latest payout (what we transfered to you recently ) and pending payout (how much your next payout will amount to)
+
+    %h4 How do I get a breakdown of my revenues for a specific period?
+    %p You can use the Revenue graph and adjust the dates to your liking. There is also a drop-down menu that you can switch from today to different time periods (eg. week, month).
+
+    %h4 What's in the Applications and API tokens sections?
+    %p This is more related to development, and you shouldn't concern yourself with this on a day-to-day basis.
+
+
+
+:javascript
+  s2p.sectionClass = "faq";
+  s2p.pageClass    = "merchant";

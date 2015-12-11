@@ -1,0 +1,234 @@
+---
+layout: default
+title: API - Reports - Payouts
+---
+
+.row
+  .col-sm-12
+    %h1 Payouts
+    %hr
+
+.row
+  .col-sm-8
+    %p The Payouts API gives you access you your latest and still pending payouts. Optionally, you can limit your results by supplying a specific date.
+
+    %p This API provides access for both create and update client applications.
+
+    .note.note-danger
+      %strong Note:
+      These are <a href="/sections/api/authorization.html">Token Authorized</a> calls.
+
+
+    %h4 Payout by Date
+    %pre
+      %code
+        GET https://app.sign2pay.com/api/v2/reports/payouts/date/2015-04-14
+
+    %p Passing a date param will return payouts generated on that date, or an empty array if none exist.
+
+
+    %h4 Payout by Type
+    %pre
+      %code
+        GET https://app.sign2pay.com/api/v2/reports/payouts/pending
+
+    %table.arguments
+      %thead
+        %tr
+          %th Parameter
+          %th Required
+          %th Type
+          %th Description
+      %tbody
+
+        %tr
+          %td.param type
+          %td.required.no no
+          %td.format String
+          %td.description Payout type you are looking for "latest" | "pending"
+
+    %h4 Request Headers &amp; Body
+    %pre
+      %code
+        :preserve
+
+          Accept: */*
+          Accept-Encoding: gzip, deflate
+          Content-Type: application/json
+          Authorization: Token token=2d7c34be6b03de66386e50a962dd4349
+          Accept-Language: en-us
+
+    %h4 Response Body
+    %pre
+      %code
+        :preserve
+          {
+            "id": "55ed27f8092fa33193000175",
+            "created_at": "2015-09-07T08:00:24.005+02:00",
+            "created_on": "2015-09-07",
+            "updated_at": "2015-09-07T08:00:36.879+02:00",
+            "gross": 0,
+            "adjustments": 0,
+            "total": 816,
+            "line_items": [
+                {
+                    "id": "55e708d7092fa331840000a5",
+                    "created_at": "2015-09-02T16:33:59.162+02:00",
+                    "updated_at": "2015-09-07T08:00:32.282+02:00",
+                    "type": "purchase",
+                    "purchase_id": "55e708740652680a360000f9",
+                    "ref_id": "BOK036249",
+                    "amount": 130
+                },
+                {
+                    "id": "55e708d7092fa331840000a6",
+                    "created_at": "2015-09-02T16:33:59.458+02:00",
+                    "updated_at": "2015-09-07T08:00:32.456+02:00",
+                    "type": "purchase_fee",
+                    "purchase_id": "55e708740652680a360000f9",
+                    "ref_id": "BOK036249",
+                    "amount": -28
+                },
+                {
+                    "id": "55e82eda092fa331840000cd",
+                    "created_at": "2015-09-03T13:28:26.610+02:00",
+                    "updated_at": "2015-09-07T08:00:32.670+02:00",
+                    "type": "purchase",
+                    "purchase_id": "55e82e090652682a63000237",
+                    "ref_id": "7V4227389",
+                    "amount": 130
+                },
+                {
+                    "id": "55e82eda092fa331840000ce",
+                    "created_at": "2015-09-03T13:28:26.872+02:00",
+                    "updated_at": "2015-09-07T08:00:32.845+02:00",
+                    "type": "purchase_fee",
+                    "purchase_id": "55e82e090652682a63000237",
+                    "ref_id": "7V4227389",
+                    "amount": -28
+                },
+                {
+                    "id": "55e865aa092fa331840000d6",
+                    "created_at": "2015-09-03T17:22:18.573+02:00",
+                    "updated_at": "2015-09-07T08:00:33.025+02:00",
+                    "type": "purchase",
+                    "purchase_id": "55e8655d0652686c9a000044",
+                    "ref_id": "C0X001934",
+                    "amount": 130
+                },
+                {
+                    "id": "55e865aa092fa331840000d7",
+                    "created_at": "2015-09-03T17:22:18.851+02:00",
+                    "updated_at": "2015-09-07T08:00:33.202+02:00",
+                    "type": "purchase_fee",
+                    "purchase_id": "55e8655d0652686c9a000044",
+                    "ref_id": "C0X001934",
+                    "amount": -28
+                },
+                {
+                    "id": "55e86770092fa331840000dd",
+                    "created_at": "2015-09-03T17:29:52.262+02:00",
+                    "updated_at": "2015-09-07T08:00:33.381+02:00",
+                    "type": "purchase",
+                    "purchase_id": "55e8673c0652686c9a00007f",
+                    "ref_id": "1DF087291",
+                    "amount": 130
+                },
+                {
+                    "id": "55e86770092fa331840000de",
+                    "created_at": "2015-09-03T17:29:52.546+02:00",
+                    "updated_at": "2015-09-07T08:00:33.556+02:00",
+                    "type": "purchase_fee",
+                    "purchase_id": "55e8673c0652686c9a00007f",
+                    "ref_id": "1DF087291",
+                    "amount": -28
+                },
+                {
+                    "id": "55e868aa092fa331840000e3",
+                    "created_at": "2015-09-03T17:35:06.654+02:00",
+                    "updated_at": "2015-09-07T08:00:33.729+02:00",
+                    "type": "purchase",
+                    "purchase_id": "55e868680652686c69000034",
+                    "ref_id": "DC7690285",
+                    "amount": 130
+                },
+                {
+                    "id": "55e868aa092fa331840000e4",
+                    "created_at": "2015-09-03T17:35:06.922+02:00",
+                    "updated_at": "2015-09-07T08:00:33.905+02:00",
+                    "type": "purchase_fee",
+                    "purchase_id": "55e868680652686c69000034",
+                    "ref_id": "DC7690285",
+                    "amount": -28
+                },
+                {
+                    "id": "55e9512f092fa331840000f0",
+                    "created_at": "2015-09-04T10:07:11.476+02:00",
+                    "updated_at": "2015-09-07T08:00:34.125+02:00",
+                    "type": "purchase",
+                    "purchase_id": "55e950f00652686c9a0002c9",
+                    "ref_id": "XBE486698",
+                    "amount": 130
+                },
+                {
+                    "id": "55e9512f092fa331840000f1",
+                    "created_at": "2015-09-04T10:07:11.742+02:00",
+                    "updated_at": "2015-09-07T08:00:34.300+02:00",
+                    "type": "purchase_fee",
+                    "purchase_id": "55e950f00652686c9a0002c9",
+                    "ref_id": "XBE486698",
+                    "amount": -28
+                },
+                {
+                    "id": "55e9629b092fa331840000f7",
+                    "created_at": "2015-09-04T11:21:31.840+02:00",
+                    "updated_at": "2015-09-07T08:00:34.477+02:00",
+                    "type": "purchase",
+                    "purchase_id": "55e961d00652686c69000190",
+                    "ref_id": "S8A290236",
+                    "amount": 130
+                },
+                {
+                    "id": "55e9629c092fa331840000f8",
+                    "created_at": "2015-09-04T11:21:32.100+02:00",
+                    "updated_at": "2015-09-07T08:00:34.656+02:00",
+                    "type": "purchase_fee",
+                    "purchase_id": "55e961d00652686c69000190",
+                    "ref_id": "S8A290236",
+                    "amount": -28
+                },
+                {
+                    "id": "55e996e8092fa331840000ff",
+                    "created_at": "2015-09-04T15:04:40.881+02:00",
+                    "updated_at": "2015-09-07T08:00:34.834+02:00",
+                    "type": "purchase",
+                    "purchase_id": "55e996410652686c9a00032c",
+                    "ref_id": "YF1627364",
+                    "amount": 130
+                },
+                {
+                    "id": "55e996e9092fa33184000100",
+                    "created_at": "2015-09-04T15:04:41.144+02:00",
+                    "updated_at": "2015-09-07T08:00:35.014+02:00",
+                    "type": "purchase_fee",
+                    "purchase_id": "55e996410652686c9a00032c",
+                    "ref_id": "YF1627364",
+                    "amount": -28
+                }
+              ]
+          }
+
+  .col-sm-4
+    %aside.aside_note
+      %h3 Pro Tip:
+      %p Use this API to reconcile your backend, OR add one of our <a href="/sections/webhooks/overview.html">webhooks</a> to be notified of status changes.
+
+      .text-bg
+        Looking for a specific report? <a href="mailto:support@sign2pay.com?subject=Report+Request">Contact Us</a>
+
+:javascript
+  s2p.sectionClass = "api";
+  s2p.pageClass     = "reports";
+
+
+//TODO

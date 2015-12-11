@@ -1,0 +1,23 @@
+---
+layout: default
+title: Merchant Account
+---
+
+.row
+  .col-sm-12
+    %h1 Merchant Account
+    %hr
+
+.row
+  .col-sm-12
+    .list-group
+      %a.list-group-item{href:"/sections/account/getting-paid.html"}
+        %h4 Getting Paid
+      %a.list-group-item{href:"/sections/account/invoicing.html"}
+        %h4 Invoicing
+      %a.list-group-item{href:"/sections/account/legal-requirements.html"}
+        %h4 Legal Requirements
+
+:javascript
+  s2p.sectionClass  = "account";
+  s2p.pageClass     = "overview";

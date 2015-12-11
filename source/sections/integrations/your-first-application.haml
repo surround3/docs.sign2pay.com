@@ -1,0 +1,51 @@
+---
+layout: default
+title: Integrations - Your First Application
+---
+
+.row
+  .col-sm-12
+    %h1 Your First Application
+    %hr
+
+.row
+  .col-sm-12
+    %p
+      If you are adding Sign2Pay to a
+      %em native
+      application, all you’ll need here is an
+      %a{:href => "/sections/glossary.html#application-name"} application name
+      and description.
+    %p
+      For
+      %em web
+      integrations, you’ll be asked to provide a
+      %a{:href => "/sections/glossary.html#redirecturi"} redirect_uri
+      as well. The redirect_uri does most of the heavy lifting of your integration. This is where you will handle both
+      %a{:href => "/sections/glossary/success.html"} success
+      and
+      %a{:href => "/sections/integrations/errors.html"} error
+      responses returned when asking your users permission to process your request.
+    %p
+      This means a publicly available resource hosted on your site that will handle everything from updating your purchase status to redirecting to your complete or error page. Upon a successful authentication, your redirect_uri will receive a request containing the
+      %a{:href => "/sections/glossary.html#authorization_grant"} authorization_grant
+      code and
+      %a{:href => "/sections/glossary.html#state"} state
+      parameters which you then use to obtain the access_token for this user.
+
+  .col-sm-4.todo
+    %aside.aside_screenshot
+      %img.placeholder{:src => "http://placehold.it/1024x768"}/
+
+.row
+  .col-sm-12
+    .step
+      %h3 Next Step
+      %p
+        You've created an application, new get the keys.
+        %a.more{:href => "/sections/integrations/client-credentials.html"}
+          Learn More
+          %span.fa.fa-chevron-right
+:javascript
+  s2p.sectionClass = "integrations";
+  s2p.pageClass    = "your-first-application";

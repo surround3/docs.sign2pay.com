@@ -1,0 +1,100 @@
+---
+layout: default
+title: API - SMS
+---
+
+.row
+  .col-sm-12
+    %h1 SMS
+    %hr
+
+.row
+  .col-sm-12
+    %p This API allows you to generate a payment link which is delivered via SMS.
+
+    .note.note-danger
+      %strong Note:
+      This is a <a href="/sections/api/authorization.html">Token Authorized</a> call.
+
+
+    %h4 Create and Deliver Payment Link via SMS
+
+    %pre
+      %code
+        POST https://app.sign2pay.com/api/v2/sms/
+
+    %table.arguments
+      %thead
+        %tr
+          %th Parameter
+          %th Required
+          %th Type
+          %th Description
+      %tbody
+
+        %tr
+          %td.param client_uid
+          %td.required.yes yes
+          %td.format Number
+          %td.description The client id issued to your Sign2Pay Client Application.
+
+        %tr
+          %td.param amount
+          %td.required.no yes
+          %td.format Integer
+          %td.description Amount of payment being requested <strong>in cents</strong>.
+
+        %tr
+          %td.param ref_id
+          %td.required.no yes
+          %td.format String
+          %td.description Your unique id for your purchase.
+
+        %tr
+          %td.param phone
+          %td.required.no yes
+          %td.format String
+          %td.description The mobile number for SMS delivery
+
+
+    %h4 Request Headers &amp; Body
+    %pre
+      %code
+        :preserve
+          Accept: */*
+          Accept-Encoding: gzip, deflate
+          Content-Type: application/json
+          Authorization: Token token=2ec27af57f6188e969b50c3d2fab8bd2
+          Accept-Language: en-us
+
+          {
+            "amount": 699,
+            "client_uid": "347022388338a3cddd911sdd84599e46",
+            "phone": "+32484836434",
+            "ref_id": "06526867c400"
+          }
+
+    %h4 Response Body
+    %pre
+      %code
+        :preserve
+          {
+            "id": "565720a79ff088a6f0000001",
+            "phone": "+32484836434",
+            "amount": 699,
+            "ref_id": "06526867c400",
+            "view_count": 0,
+            "token": "10855579-50cb-43df-824a-6d770476426a",
+            "state": "queued",
+            "message": "Your Papa John's invoice with the amount of €6.99 is pending. Complete your payment on your touch enabled device by visiting: https://app.sign2pay.com/sms/10855579-50cb-43df-824a-6d770476426a",
+            "formatted_amount": "€6.99",
+            "link": {
+              "href": "http://app.sign2pay.com/en/api/v2/sms/565720a79ff088a6f0000001",
+              "rel": "self",
+              "method": "GET"
+            }
+          }
+
+:javascript
+  s2p.sectionClass = "api";
+  s2p.pageClass = "sms";

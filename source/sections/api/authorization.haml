@@ -1,0 +1,62 @@
+---
+layout: default
+title: API
+---
+
+.row
+  .col-sm-12
+    %h1 Authorization
+    %hr
+
+.row
+  .col-sm-8
+    %h3 Token Authorization
+    %p Sign2pay uses tokens to allow access to the API. Your API Token is available from your <a href="https://merchant.sign2pay.com/merchant_applications", target="_blank">Merchant Admin</a>. Store the tokens securely and pass one with every request.
+
+    %p For protected resources, you must pass a valid token in a HTTP Token Authorization header.
+
+    %h5 Example:
+
+    %pre
+      %code
+        Authorization: Token token="0047f40cf37dbb5cc6301d17194ed2e2"
+
+    %p.note.note-danger It is important that this access token is kept strictly private. If it ever becomes compromised, you must revoke the old access token and generate a new one as soon as possible.
+
+
+    %h3 Bearer Authorization
+
+    .step
+
+      %p Sign2pay also employs the Bearer Authorization header when you are making a request using an Access Token that you cannot authenticate.
+
+      %h5 Example:
+
+      %pre
+        %code
+          Authorization: Bearer token="0047f40cf37dbb5cc6301d17194ed2e2"
+
+    %h3 Client Authorization
+
+    .step
+
+      %p Used when making server to server calls, Payment Requests, for example. This is done by encoding your <a href="/sections/integrations/client-credentials.html">Client Credentials</a>.
+
+      %h5 Example:
+
+      %pre
+        %code
+          Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwNOM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=
+
+  .col-sm-4
+    %aside.aside_note
+      %h3 Your API Token
+      %p
+        %a{:href => "https://merchant.sign2pay.com/merchant_applications", :target=>"_blank"} Sign into your Merchant Admin
+        to view your API Token or request a new one.
+
+
+
+:javascript
+  s2p.sectionClass = "api";
+  s2p.pageClass = "authorization";

@@ -1,0 +1,499 @@
+---
+layout: default
+title: Integrations
+---
+
+.row
+  .col-sm-12
+    %h1 Integration
+    %hr
+
+.row
+  .col-sm-6.text-center.approach
+    .panel
+      .panel-body.bordered
+        .heading.text-slim.text-center Native App
+        .big-ass-icon.native
+          %i.fa.fa-mobile
+
+        Add sign2pay to your native application via our
+        %a{:href=> "/sections/sdks/ios.html"}
+          iOS SDK
+
+  .col-sm-6.text-center.approach
+    .panel
+      .panel-body.bordered
+        .heading.text-slim.text-center Web
+        .big-ass-icon.web
+          %i.fa.fa-safari
+
+        Add sign2pay to your site via simple javascript, or
+        %a{:href=> "/sections/sdks/overview.html"}
+          one of our SDKs
+
+.row
+  .col-sm-12
+    %p The approach of marrying the OAuth 2.0 protocol to sign2pay's secure mobile payments was dubbed internally as Authature.  The Authature protocol supports the standard <a href="https://tools.ietf.org/html/rfc6749#section-4.1">authorization code grant</a> type.
+
+    %p In order to complete a purchase, you should implement the flow described below in your application.  For On-Demand payment integration, the flow <em>must</em> include these 3 sequential steps: requesting access permission, obtaining an access token, and requesting the payment.
+
+    -# %p Regardless of your specific implementation, the process of obtaining an Access Token remains the same.
+
+
+.row
+  .col-sm-12
+    %ul#uidemo-tabs-default-demo.nav.nav-tabs
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#request_access"}
+          1. Requesting Access Permission
+
+      %li
+        %a{"data-toggle" => "tab", :href => "#access_grant"}
+          2. Obtaining Access Token
+
+      %li
+        %a{"data-toggle" => "tab", :href => "#payment_request"}
+          3. Requesting Payment
+
+      / / .dropdown
+    .tab-content.tab-content-bordered
+
+      #request_access.tab-pane.panel-padding.fade.active.in
+
+        %h3 Requesting Permission from your User by Obtaining an Authorization Code
+
+        %p Obtaining a user's permission to access their account/process payments begins with sending them to the authorization URI.
+
+        %p
+          %strong
+            Method:
+          %code
+            GET
+        %p
+          %strong
+            Authorization URI:
+          %code
+            :preserve
+              https://app.sign2pay.com/oauth/authorize
+
+        %p This is accomplished through a GET request to the authorization URI while including some required parameters.  This is where a user will identify themselves and authorize your request with their signature.
+        %p For on-demand payments, you must include <code>client_id</code>, <code>response_type</code>, <code>redirect_uri</code>, <code>scope</code>, <code>state</code>, <code>device_uid</code>, <code>amount</code>, and <code>ref_id</code> parameters with the GET request.
+        %p It is important to note that sign2pay employs the idea of <i>Progressive Registration</i>. This means that you can provide as much or as little user detail that you have available at the time, and the Identification portion of the process will request the missing detail.
+        %p You can provide additonal user detail when building your payment link by passing in the optional user_params object.
+
+        %table.arguments
+          %thead
+            %tr
+              %th Parameter
+              %th Required
+              %th Type
+              %th Description
+          %tbody
+            %tr
+              %td.param client_id
+              %td.required.yes yes
+              %td.format Number
+              %td.description The client id issued to your sign2pay Client Application.
+            %tr
+              %td.param redirect_uri
+              %td.required.yes yes
+              %td.format String
+              %td.description The uri the user will be redirected to after authorization. Must have the same domain as the application. Must match the redirect_uri specified in the sign2pay Merchant Admin application settings.
+            %tr
+              %td.param scope
+              %td.required.yes yes
+              %td.format String
+              %td.description A space separated string list of permission scopes.  They include: payment, preapproval, authenticate, capture.  For on-demand payments, the scope <strong>must</strong> be specified as <strong>payment</strong>.
+            %tr
+              %td.param state
+              %td.required.yes yes
+              %td.format String
+              %td.description A session string that your client uses to maintain state between requests.
+            %tr
+              %td.param device_uid
+              %td.required.yes yes
+              %td.format String
+              %td.description A string that identifies the user's device.
+            %tr
+              %td.param response_type
+              %td.required.yes yes
+              %td.format String
+              %td.description Must be specified as <strong>code</strong>.
+            %tr
+              %td.param amount
+              %td.required.no yes/no
+              %td.format Integer
+              %td.description When requesting the <strong>payment</strong> scope, the amount of payment in cents <strong>is</strong> required. Otherwise, it is optional.
+
+            %tr
+              %td.param ref_id
+              %td.required.no yes/no
+              %td.format String
+              %td.description When requesting the <strong>payment</strong> scope, your unique id for your purchase <strong>is</strong> required. Otherwise, it is optional.
+
+            %tr
+              %td.param user_params[identifier]
+              %td.required.no no
+              %td.format String
+              %td.description The <strong>email</strong> address used to identify the user
+            %tr
+              %td.param user_params[first_name]
+              %td.required.no no
+              %td.format String
+              %td.description The user's first name
+            %tr
+              %td.param user_params[last_name]
+              %td.required.no no
+              %td.format String
+              %td.description The user's last name
+            %tr
+              %td.param user_params[mobile]
+              %td.required.no no
+              %td.format String
+              %td.description Mobile number for this user including country code (ie: <i>+32484831234</i>)
+            %tr
+              %td.param user_params[address]
+              %td.required.no no
+              %td.format String
+              %td.description Street address for this user including house/apt number.
+            %tr
+              %td.param user_params[city]
+              %td.required.no no
+              %td.format String
+              %td.description City of the user's address
+            %tr
+              %td.param user_params[postal_code]
+              %td.required.no no
+              %td.format String
+              %td.description User's postal code
+
+        %h4 Example Request URL:
+
+        %pre
+          %code
+            :preserve
+              https://app.sign2pay.com/oauth/authorize?
+              client_id=c509fd593742b6b08adf4f0b41a4801c&
+              response_type=code&
+              redirect_uri=http%3A%2F%2Fexample.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&
+              state=8e108029ade0d75a1e134d1404f44325eec53356ae665ba21cba1bf8559f5e8d&
+              scope=payment&
+              ux_style=popup&
+              user_params%5Bidentifier%5D=nick%40sign2pay.com&
+              user_params%5Bfirst_name%5D=Nick&
+              user_params%5Blast_name%5D=Lloyd&
+              amount=1995
+
+        %p
+          %a.btn.btn-flat.btn-info.btn-lg.text-slim{href: "https://app.sign2pay.com/oauth/authorize?authature_site=app.sign2pay.com&client_id=c509fd593742b6b08adf4f0b41a4801c&response_type=code&redirect_uri=http%3A%2F%2Fauthature.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&state=c3ee82dfdd1ede4f938c95504f8284850bad55c5d1df0392c5cc9427c3d1526e&device_uid=4b808ae03b1ba5ee3512e25e19d9c368b80835654094ea3a7fea27ca398a7279&scope=payment&ux_style=popup&user_params%5Bidentifier%5D=nick%40sign2pay.com&user_params%5Bfirst_name%5D=Nick&user_params%5Blast_name%5D=Lloyd&amount=1995&ref_id=5795c838647f84abea6719cb1e15f2ba7ca581b441d2491b899d9ce71779b9ec", target: "_blank"} Example Popup
+
+        .step
+
+          %h3 Response
+
+          %p Once the user authorizes access, the user is redirected back to the <b>redirect_uri</b> you originally specified.
+          %p When the redirect uri represents a native application, the access grant is returned as a JSON object. Otherwise, the authorization code and state is appended to the redirect_uri as shown below.
+          %p A successful authorization response will include the <code>code</code> and <code>state</code> params.
+
+          %h5 Native Example:
+          %pre
+            %code
+              :preserve
+                {
+                  "code" : "829de1eb40385ebdfcc854e2ba94fb96",
+                  "state" : "x3buLJqq3iAx3buLJqq3iA"
+                }
+          %h5 Web Example:
+          %pre
+            %code
+              :preserve
+                https://example.com/oauth/redirect_uri?code=829de1eb40385ebdfcc854e2ba94fb96&state=x3buLJqq3iAx3buLJqq3iA
+
+          %p Either way, you'll need the access grant code in order to move onto the next step, exchanging it for an Access Token.
+
+          .note.note-info
+            The authorization code is short lived - it will expire in 30 seconds from creation.  It must be immediately transferred for an Access Token.
+
+          .note.note-danger
+            If there was an error in the authentication code request, your redirect_uri will receive a request containing the error and error_description params for you to parse. You can read more about handling errors <a href="/sections/integrations/errors.html">here</a>.
+
+        .row
+          .col-sm-12
+            .step
+              %h3 Next Step
+              %a{:href => "#access_grant", :data => {:toggle => "tab" }}
+                Obtaining an Access Token
+                %span.fa.fa-chevron-right
+
+      #access_grant.tab-pane.panel-padding.fade
+
+        %h3 Exchanging Authentication Code for an Access Token
+
+        %p Now that you have the Authorization Code, you'll exchange it for an Access Token. This is done by sending an authenticated POST request to the exchange endpoint.
+
+        %p
+          %strong
+            Method:
+          %code
+            POST
+        %p
+          %strong
+            URI:
+          %code
+            :preserve
+              https://app.sign2pay.com/oauth/token
+
+        %p
+          %strong
+            Authentication:
+          %code
+            :preserve
+              Authorization: Basic [encoded credentials CLIENT_ID, CLIENT_SECRET]
+
+        %p The requirements for exchanging your Authentication Code for an Access Token are listed below.
+
+        %table.arguments
+          %thead
+            %tr
+              %th Parameter
+              %th Required
+              %th Type
+              %th Description
+          %tbody
+            %tr
+              %td.param client_id
+              %td.required.yes yes
+              %td.format Number
+              %td.description The client id issued to your sign2pay Client Application.
+            %tr
+              %td.param code
+              %td.required.yes yes
+              %td.format String
+              %td.description The Authentication Code returned in the previous step when requesting user's permission.
+            %tr
+              %td.param state
+              %td.required.yes yes
+              %td.format String
+              %td.description The session string that your client sent with the original Authorization Request.
+
+            %tr
+              %td.param redirect_uri
+              %td.required.yes yes
+              %td.format String
+              %td.description The uri the user will be redirected to after payment.  Must have the same domain as the application. Must match the redirect_uri specified in the sign2pay Merchant Admin application settings.
+
+        %h4 Example Request Header:
+
+        %pre
+          %code
+            :preserve
+              Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwNOM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=
+              Content-Type: application/x-www-form-urlencoded
+
+        .note.note-info The <a href='/sections/api/authorization.html'>Authorization: Basic authorization header</a> is generated through a Base64 encoding of <code>CLIENT_ID, CLIENT_SECRET</code> per RFC 2617. You can use <a href="https://www.base64encode.org/">https://www.base64encode.org/</a> to see how it should be encoded.
+
+        %h4 Example Request Body:
+
+        %pre
+          %code
+            :preserve
+              client_id=c509fd593742b6b08adf4f0b41a4801c&
+              redirect_uri=http%3A%2F%2Fexample.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&
+              code=829de1eb40385ebdfcc854e2ba94fb96&
+              state=x3buLJqq3iAx3buLJqq3iA
+
+        .step
+          %h3 Response
+
+          %p As this request is server side only, the Access Token is returned as a JSON object.
+
+          %p Included within the Access Token object are some additonal user and account details that you may find useful for display within your own application.
+          %p It is important to note that the token attribute is directly related to the account object as this is the account the user has granted you permission to use.
+
+          %h4 Example Response:
+          %pre
+            %code
+              :preserve
+                {
+                  "access_token":
+                    {
+                      "token": "70ae0833466bacd744e68e38ae4ace70a7a5ad1ef302c406a35bec227abf96f6",
+                      "type": "bearer",
+                      "scopes": "payment",
+                      "user": {
+                        "first_name": "nick",
+                        "last_name": "lloyd",
+                        "identifier": "nick@sign2pay.com"
+                      },
+                      "account": {
+                        "masked_iban": "************1437",
+                        "primary": true,
+                        "uid": "3150d493acabcb319d395037de2f03f9",
+                        "bank": {
+                          "swift": "KREDBEBB",
+                          "country_code": "BE",
+                          "logo": "https://s2p.s3-eu-west-1.amazonaws.com/banks/BE/KREDBEBB.png?1429107098",
+                          "has_logo": true,
+                          "bank_name": "KBC BANK"
+                        }
+                      },
+                      "expires": "2015-09-16T11:33:06.883+02:00"
+                    }
+                  }
+
+          .note.note-info
+            When the scope is for "payment", and not "preapproval", the access token is short lived - it will expire in 2 minutes from creation, and can only be used for a single payment.
+
+          .note.note-danger
+            If there was an error in the Access Token request, your redirect_uri will receive a request containing the error and error_description params for you to parse. You can read more about handling errors <a href="/sections/integrations/errors.html">here</a>.
+
+        .row
+          .col-sm-12
+            .step
+              %h3 Next Step
+              %a{:href => "#payment_request", :data => {:toggle => "tab" }}
+                Requesting Payment
+                %span.fa.fa-chevron-right
+
+      #payment_request.tab-pane.panel-padding.fade
+
+        %h3 Making a Payment Request
+
+        %p For On-Demand Payments, you'll make the payment request immediately after you receive the Access Token.  This is done by sending an authenticated POST request to the payment capture endpoint.
+
+        %p
+          %strong
+            Method:
+          %code
+            POST
+        %p
+          %strong
+            URI:
+          %code
+            :preserve
+              https://app.sign2pay.com/api/v2/payment/authorize/capture
+
+        %p
+          %strong
+            Authentication:
+          %code
+            :preserve
+              Authorization: Basic [encoded credentials CLIENT_ID, CLIENT_SECRET]
+
+        %p The requirements for making a payment request are listed below.
+
+        %table.arguments
+          %thead
+            %tr
+              %th Parameter
+              %th Required
+              %th Type
+              %th Description
+          %tbody
+            %tr
+              %td.param client_id
+              %td.required.yes yes
+              %td.format Number
+              %td.description The client ID issued to your sign2pay Client Application.
+            %tr
+              %td.param amount
+              %td.required.no yes
+              %td.format Integer
+              %td.description Amount of payment being requested <strong>in cents</strong>.
+
+            %tr
+              %td.param ref_id
+              %td.required.no yes
+              %td.format String
+              %td.description Your unique id for your purchase.
+
+            %tr
+              %td.param token
+              %td.required.no yes
+              %td.format String
+              %td.description The Access Token you just received
+
+        %h4 Example Request Header:
+
+        %pre
+          %code
+            :preserve
+              Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwNOM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=
+              Content-Type: application/x-www-form-urlencoded
+
+        .note.note-info The <a href='/sections/api/authorization.html'>Authorization: Basic authorization header</a> is generated through a Base64 encoding of <code>CLIENT_ID, CLIENT_SECRET</code> per RFC 2617. You can use <a href="https://www.base64encode.org/">https://www.base64encode.org/</a> to see how it should be encoded.
+
+        %h4 Example Request Body:
+
+        %pre
+          %code
+            :preserve
+              client_id=c509fd593742b6b08adf4f0b41a4801c&
+              token=bb1cd6ce37d093eb2e8c32e7ec9847b3058112b92d3868371ae5426c463dad0d&
+              ref_id=123654123&
+              amount=1692
+
+        .step
+
+          %h3 Response
+
+          %p A successful Payment request returns a JSON object containing the "purchase_id".
+
+          %h5 Example Response:
+          %pre
+            %code
+              :preserve
+                {
+                  "purchase_id": "55f980b6e6db99dba9000001"
+                }
+
+          %p Since the payment process is now complete, the user will be redirected back to your application through the URL specified as your application's redirect_uri.
+
+          %p This is your opportunity to update your local object (purchase, order, payment or whatever your model is named) as "paid", and redirect your user to your next step such as a "Thanks for your purchase" page.
+
+          .note.note-info
+            Don't forget this is happening server side, so you'll want to pass along the message if need be to your iOS client, or simply redirect your user in your web application.
+
+          .note.note-danger
+            If there was an error in the payment request, your redirect_uri will receive a request containing the error and error_description params for you to parse. You can read more about handling errors <a href="/sections/integrations/errors.html">here</a>.
+
+
+:javascript
+  s2p.sectionClass = "integrations";
+  s2p.pageClass    = "approaches";
+
+:scss
+  .token_steps{
+    margin-bottom:1em;
+    .token_step{
+      width:100%;
+      display:block;
+      border-radius: 4px;
+      text-align:center;
+    }
+  }
+  .approach{
+    .panel{
+      padding:0.5em;
+      .panel-body{
+        border-radius: 4px;
+      }
+    }
+    .heading{
+      font-size:1.4em;
+      color: #1486BA;
+      text-align:center;
+    }
+
+    .big-ass-icon{
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+      color: rgba(212,219,223,1);
+      line-height: 160px;
+      font-size:160px;
+
+      &.web{
+       line-height: 160px;
+        font-size:100px;
+      }
+    }
+  }

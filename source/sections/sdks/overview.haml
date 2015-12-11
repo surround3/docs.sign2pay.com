@@ -1,0 +1,35 @@
+---
+layout: default
+title: SDKs
+---
+
+.row
+  .col-sm-12
+    %h1 Overview
+    %hr
+
+.row
+  .col-sm-8
+
+    %p We're currently working on releasing SDKs for:
+    %ul
+      %li Ruby
+      %li PHP
+      %li
+        %a{:href => "ios.html"} iOS
+      %li Node.js
+
+
+  .col-sm-4
+    %aside.aside_screenshot
+      %img{:src => "/images/screenshots/rotate.png"}/
+
+    %p
+      If you'd like to see your language of choice added to this list,
+      = succeed "!" do
+        %a{:href => "mailto:support@sign2pay.com?subject=Authature SDKs"} drop us a line
+
+
+:javascript
+  s2p.sectionClass = "sdks";
+  s2p.pageClass    = "overview";

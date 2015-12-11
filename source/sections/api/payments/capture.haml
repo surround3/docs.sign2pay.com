@@ -1,0 +1,91 @@
+---
+layout: default
+title: API - Payment - Capture
+---
+
+.row
+  .col-sm-12
+    %h1 Payments: Capture
+    %hr
+
+.row
+  .col-sm-12
+    %p This API allows you to authorize an amount against an Access Token <i>before</i> capturing the actual payment.
+
+    .note.note-danger
+      %strong Note:
+      This is a <a href="/sections/api/authorization.html">Client Authorized</a> call.
+
+
+    %h4 Capture a Payment
+    %pre
+      %code
+        POST https://app.sign2pay.com/api/v2/payment/capture/17cdb6d94d0bb43e4a68aaa2bcbbee41
+
+    %table.arguments
+      %thead
+        %tr
+          %th Parameter
+          %th Required
+          %th Type
+          %th Description
+      %tbody
+
+        %tr
+          %td.param client_id
+          %td.required.yes yes
+          %td.format String
+          %td.description The client id issued to your Sign2Pay Client Application.
+
+        %tr
+          %td.param amount
+          %td.required.yes yes
+          %td.format Integer
+          %td.description The amount in cents you would like to authorize.
+
+        %tr
+          %td.param authorization_id
+          %td.required.yes yes
+          %td.format String
+          %td.description The authorization_id that was returned from performing payment/authorize.
+
+        %tr
+          %td.param token
+          %td.required.yes yes
+          %td.format String
+          %td.description The Access Token to attribute this payment to.
+
+    %h4 Request Headers &amp; Body
+    %pre
+      %code
+        :preserve
+          Accept: */*
+          Accept-Encoding: gzip, deflate
+          Content-Type: application/json
+          Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwMWM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=
+          Accept-Language: en-us
+
+          {
+            "amount": 500,
+            "authorization_id": "aacb7ffc8720aa1c09073edfdd40f868",
+            "client_id": "c509fd593742b6b08adf4f0b41a4801c",
+            "ref_id": "387bd928942e062",
+            "token": "d81ff0f3f961e7c387bd928942e062b59cb237c9d595ed9afcd9eca320356199"
+          }
+
+    %h4 Response Body
+    %pre
+      %code
+        :preserve
+          {
+            "purchase_id": "55fac531e6db99858e000000"
+          }
+
+
+:javascript
+  s2p.sectionClass = "api";
+  s2p.pageClass     = "payment";
+
+
+
+//TODO

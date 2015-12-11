@@ -1,0 +1,62 @@
+---
+layout: default
+title: API - Payment - Status
+---
+
+.row
+  .col-sm-12
+    %h1 Payments - Status
+    %hr
+
+.row
+  .col-sm-8
+    %p This API allows you to check the current status of a payment request
+
+    .note.note-danger
+      %strong Note:
+      This is a <a href="/sections/api/authorization.html">Client Authorized</a> call.
+
+    %h4 Check Payment Status
+    %pre
+      %code
+        GET https://app.sign2pay.com/api/v2/payment/status/55fac963e6db9909ba000003
+
+    %table.arguments
+      %thead
+        %tr
+          %th Parameter
+          %th Required
+          %th Type
+          %th Description
+      %tbody
+
+        %tr
+          %td.param purchase_id
+          %td.required.yes yes
+          %td.format String
+          %td.description The purchase id issued to your successful Payment Request.
+
+    %h4 Request Headers &amp; Body
+    %pre
+      %code
+        :preserve
+          Accept: */*
+          Accept-Encoding: gzip, deflate
+          Content-Type: application/json
+          Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwMWM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=
+          Accept-Language: en-us
+
+    %h4 Response Body
+    %pre
+      %code
+        :preserve
+          {
+            "status": "PROCESSING"
+          }
+
+  .col-sm-4
+
+:javascript
+  s2p.sectionClass = "api";
+  s2p.pageClass    = "payment";
+

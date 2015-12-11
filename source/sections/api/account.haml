@@ -1,0 +1,106 @@
+---
+layout: default
+title: API - Account
+---
+
+.row
+  .col-sm-12
+    %h1 Account
+    %hr
+
+.row
+  .col-sm-12
+
+    %p The Account API allows you to request the verification pin from your user and send to us for validation.
+
+    .note.note-danger
+      %strong Note:
+      This is a <a href="/sections/api/authorization.html">Bearer Authorized</a> call.
+
+    %table.arguments
+      %thead
+        %tr
+          %th Parameter
+          %th Required
+          %th Type
+          %th Description
+      %tbody
+
+        %tr
+          %td.param client_id
+          %td.required.yes yes
+          %td.format String
+          %td.description The client id issued to your Sign2Pay Client Application.
+
+        %tr
+          %td.param verification_pin
+          %td.required.yes yes
+          %td.format String
+          %td.description The Verification Pin that was sent to your user in the remarks field of the €0.01 transfer we made to their account.
+
+    %h4 Verifiy Account
+    %pre
+      %code
+        PUT https://app.sign2pay.com/api/v2/accounts
+
+    %h4 Request Headers &amp; Body
+    %pre
+      %code
+        :preserve
+          Accept: */*
+          Accept-Encoding: gzip, deflate
+          Content-Type: application/json
+          Authorization: Bearer 8292414f36f41db97eafd0c61e920e0ee074e315fd7d55f9b4a1e5544e306870
+          Accept-Language: en-us
+
+          {
+            "client_id": "b46201ff10e3770794bb103850c35cdf",
+            "verification_pin": "604758"
+          }
+
+    %h4 Response Body
+    %pre
+      %code
+        :preserve
+          {
+            "id": "5601172f0652687a44000018",
+            "masked_iban": "**************6851",
+            "primary": true,
+            "verified": true,
+            "uid": "52750c69982127fa4a1d4851b535c970",
+            "bank": {
+                "id": "53455a5369702d346c080500",
+                "swift": "RABONL2UXXX",
+                "country_code": "NL",
+                "logo": "https://s2p-development.s3-eu-west-1.amazonaws.com/banks/NL/RABONL2UXXX.png?1409056230",
+                "has_logo": true,
+                "bank_name": "RABOBANK NEDERLAND"
+            },
+            "mandate": {
+                "id": "560117840652687a4400002a",
+                "creditor": {
+                    "name": "SIGN2PAY",
+                    "identifier": "BE82ZZZ0542505558",
+                    "address": "Lange Klarenstraat 19",
+                    "city": "Antwerpen",
+                    "country": "Belgium",
+                    "postal_code": "2000"
+                },
+                "date_signed": "22/09/2015",
+                "iban": "NL80RABO0313325487",
+                "swift": "RABONL2UXXX",
+                "bank_name": "RABOBANK NEDERLAND"
+            }
+          }
+
+:javascript
+  s2p.sectionClass = "api";
+  s2p.pageClass = "account";
+
+:css
+  .button-example{
+    padding:0.5em;
+    font-size:1.4em;
+  }
+
+//TODO

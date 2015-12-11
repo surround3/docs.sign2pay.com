@@ -1,0 +1,52 @@
+---
+layout: default
+title: API - OAuth - Signature
+---
+
+#OAuth: Signature
+
+.row
+  .col-sm-12
+    %h1 OAuth: Signature
+    %hr
+
+.row
+  .col-sm-12
+
+    %p This API allows you to retrieve the image data associated to an Access Token to display the signature or embed within a document.
+
+    .note.note-danger
+      %strong Note:
+      This is a <a href="/sections/api/authorization.html">Client Authorized</a> call.
+
+    %h4 Fetch Signature Image Data
+    %pre
+      %code
+        GET https://app.sign2pay.com/oauth/signatures/675bb9b23f731659c438c45ab1b26b8c39ba9154652b2877668e31e762f8b26c
+
+    %h4 Request Headers &amp; Body
+    %pre
+      %code
+        :preserve
+
+          Accept: */*
+          Accept-Encoding: gzip, deflate
+          Content-Type: application/json
+          Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwMWM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=
+          Accept-Language: en-us
+
+
+    %h4 Response Body
+    %pre
+      %code
+        :preserve
+          {
+            "image_data": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIiB3aWR0aD0iNDM5IiBoZWlnaHQ9IjEyOSI+PHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZD0iTSA3IDkzIGMgLTAuMDkgMC4zIC0zLjk0IDExLjMzIC01IDE3IGMgLTAuOSA0LjgxIC0yLjMzIDEyLjQ4IC0xIDE1IGMgMC45IDEuNzEgNy4xMyAyLjY3IDEwIDIgYyA5Ljg5IC0yLjMgMjIuOTkgLTYuNDIgMzMgLTEyIGMgMjkuOTcgLTE2LjcgNTkuMzEgLTM2LjU4IDg5IC01NiBjIDUuNDIgLTMuNTUgMTUuMTcgLTEyLjc5IDE1IC0xMiBjIC0wLjM2IDEuNjUgLTEzLjkgMjMuMDIgLTIwIDM1IGMgLTIuOTIgNS43NCAtNC45NyAxMS45IC03IDE4IGMgLTAuOTcgMi45MSAtMi41OSA3LjEgLTIgOSBjIDAuNDYgMS40OSA0LjA1IDQuMDQgNiA0IGMgMTAuOTEgLTAuMjQgMjcuNDYgLTEuNjggNDAgLTUgYyAxNC4zOSAtMy44MSAyOC44NyAtMTAuNDYgNDMgLTE3IGMgMTIuODUgLTUuOTUgMjQuMzcgLTEzLjY5IDM3IC0yMCBjIDQuMTggLTIuMDkgMTIuMDYgLTUuODMgMTMgLTUgYyAwLjg4IDAuNzcgLTIuOTggOC4zMyAtNSAxMiBsIC02IDgiLz48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBkPSJNIDIzOSAxMDUgYyAwLjI4IC0wLjA5IDEwLjg4IC0yLjc3IDE2IC01IGMgMTMuMjUgLTUuNzggMjYuNDkgLTExLjczIDM5IC0xOSBjIDEyLjI0IC03LjExIDIzLjk2IC0xNS4xIDM1IC0yNCBjIDEzLjA4IC0xMC41MyAyNC44NiAtMjIuMSAzNyAtMzQgYyA1LjQ4IC01LjM3IDExLjU2IC0xMS45NSAxNSAtMTcgYyAwLjc2IC0xLjExIDAuMjEgLTUuMjUgMCAtNSBjIC0xLjEzIDEuMzYgLTEwLjI4IDE0LjkyIC0xNSAyMyBjIC03LjIyIDEyLjM4IC0xMy41NiAyNC4xMSAtMjAgMzcgYyAtNS45IDExLjc5IC0xMS4zMyAyMy4wMyAtMTYgMzUgYyAtMy4wMyA3Ljc4IC01LjE5IDE2LjI1IC03IDI0IGMgLTAuNDMgMS44NiAtMC42MSA0Ljc4IDAgNiBjIDAuNDUgMC45MSAyLjY3IDEuOTcgNCAyIGMgMjUuMzUgMC41NyA1NS42MiAwLjI2IDg1IDAgYyA4Ljk5IC0wLjA4IDI2IC0xIDI2IC0xIi8+PC9zdmc+"
+          }
+
+:javascript
+  s2p.sectionClass = "api";
+  s2p.pageClass    = "oauth";
+
+
+//TODO

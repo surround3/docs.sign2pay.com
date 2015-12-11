@@ -1,0 +1,51 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+// Note: Some variables are overriding in the "pixel-admin-scss/_variables.scss" file
+
+// ### Variables
+// @import "./libs/bootstrap-sass-3.1.1/bootstrap/variables"; // Default _variables.scss
+@import "./pixel-admin-scss/variables";
+
+// ### Bootstrap"s mixins
+// @import "./libs/bootstrap-sass-3.1.1/bootstrap/mixins";
+
+// ### Font Awesome"s stylesheets
+// @import "./libs/font-awesome-4.0.3/scss/font-awesome.scss"; // Default Font-Awesome
+
+// ### Animate.css
+// @import "./libs/animate.scss";
+
+
+// ### Pixel Admin"s stylesheets
+@import "./pixel-admin-scss/mixins";
+@import "./pixel-admin-scss/base";
+
+@import "./pixel-admin-scss/buttons";
+@import "./pixel-admin-scss/progress_bars";
+@import "./pixel-admin-scss/labels";
+@import "./pixel-admin-scss/badges";
+@import "./pixel-admin-scss/breadcrumb";
+@import "./pixel-admin-scss/alerts";
+@import "./pixel-admin-scss/tables";
+
+@import "./pixel-admin-scss/dropdowns";
+@import "./pixel-admin-scss/button_groups";
+@import "./pixel-admin-scss/pagination";
+@import "./pixel-admin-scss/list_groups";
+@import "./pixel-admin-scss/forms";
+@import "./pixel-admin-scss/input_groups";
+@import "./pixel-admin-scss/panels";
+@import "./pixel-admin-scss/wells";
+@import "./pixel-admin-scss/popovers";
+@import "./pixel-admin-scss/tooltips";
+@import "./pixel-admin-scss/modals";
+@import "./pixel-admin-scss/accordions";
+@import "./pixel-admin-scss/notes";
+@import "./pixel-admin-scss/counters";
+@import "./pixel-admin-scss/colors";
+@import "./pixel-admin-scss/stats";
+@import "./pixel-admin-scss/utils";
+
+
+@import "./pixel-admin-scss/widgets/widgets";

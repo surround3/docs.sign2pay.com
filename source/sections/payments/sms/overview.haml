@@ -1,0 +1,27 @@
+---
+layout: default
+title: SMS Payments
+---
+
+.row
+  .col-sm-12
+    %h1 SMS Payments
+    %hr
+
+.row
+  .col-sm-8
+
+    %p This is brand spanking new, but coming to market soon!
+
+    %p
+      We're still finishing off the documentation, but
+      %a{:href => "mailto:hello@sign2pay.com"} drop us a line
+      if you’re too excited to wait and we’ll tell you all about it.
+
+  .col-sm-4
+    %aside.aside_screenshot
+      %img{:src => "/images/screenshots/sms.jpeg"}/
+
+:javascript
+  s2p.sectionClass = "payments";
+  s2p.pageClass    = "sms";

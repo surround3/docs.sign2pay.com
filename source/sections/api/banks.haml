@@ -1,0 +1,103 @@
+---
+layout: default
+title: API - Banks
+---
+
+.row
+  .col-sm-12
+    %h1 Banks
+    %hr
+
+.row
+  .col-sm-8
+
+    %p The Banks API provides you with an arrary of <a href="/sections/glossary.html#vip_banks">VIP Bank</a> objects based on country code. You can either supply a country code, or it will default to the geo-located source of the request.
+
+    %table.arguments
+      %thead
+        %tr
+          %th Parameter
+          %th Required
+          %th Type
+          %th Description
+      %tbody
+
+        %tr
+          %td.param country_code
+          %td.required.no no
+          %td.format String
+          %td.description Two digit, ISO 3166-1 alpha-2 country code
+
+    %h4 List VIP Banks
+    %pre
+      %code
+        GET https://app.sign2pay.com/api/v2/banks?country_code=NL
+
+    %h4 Request Headers &amp; Body
+    %pre
+      %code
+        :preserve
+          Accept: */*
+          Accept-Encoding: gzip, deflate
+          Content-Type: application/json
+          Accept-Language: en-us
+
+    %h4 Response Body
+    %pre
+      %code
+        :preserve
+          [
+              {
+                  "id": "53455a5269702d346c7d0400",
+                  "swift": "ABNANL2AXXX",
+                  "country_code": "NL",
+                  "logo": "https://s2p-development.s3-eu-west-1.amazonaws.com/banks/NL/ABNANL2AXXX.png?1408984025",
+                  "has_logo": true,
+                  "bank_name": "ABN AMRO BANK N.V."
+              },
+              {
+                  "id": "53455a5369702d346c080500",
+                  "swift": "RABONL2UXXX",
+                  "country_code": "NL",
+                  "logo": "https://s2p-development.s3-eu-west-1.amazonaws.com/banks/NL/RABONL2UXXX.png?1409056230",
+                  "has_logo": true,
+                  "bank_name": "RABOBANK NEDERLAND"
+              },
+              {
+                  "id": "53455a5369702d346c140500",
+                  "swift": "SNSBNL2AXXX",
+                  "country_code": "NL",
+                  "logo": "https://s2p-development.s3-eu-west-1.amazonaws.com/banks/NL/SNSBNL2AXXX.jpg?1410259407",
+                  "has_logo": true,
+                  "bank_name": "SNS BANK N.V."
+              },
+              {
+                  "id": "53455a5369702d346cc70400",
+                  "swift": "INGBNL2AXXX",
+                  "country_code": "NL",
+                  "logo": "https://s2p-development.s3-eu-west-1.amazonaws.com/banks/NL/INGBNL2AXXX.gif?1408988032",
+                  "has_logo": true,
+                  "bank_name": "ING Bank N.V."
+              }
+          ]
+
+  .col-sm-4
+    %aside.aside_note
+      %h3 Pro Tip:
+      %p Use this call to display the banks your user will recognize. It instills trust, and makes it more likely they will choose Direct Debit.
+      .panel.bordered.button-example.text-slim
+        %img{src:"/images/NL_banks.gif", width: 70, height: 70}
+        %span.panel-padding Pay with your Bank Account
+
+
+:javascript
+  s2p.sectionClass = "api";
+  s2p.pageClass = "banks";
+
+:css
+  .button-example{
+    padding:0.5em;
+    font-size:1.4em;
+  }
+
+//TODO

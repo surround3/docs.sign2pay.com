@@ -1,0 +1,42 @@
+---
+layout: default
+title: Integrations - Registration
+---
+
+.row
+  .col-sm-12
+    %h1 Registration
+    %hr
+.row
+  .col-sm-8
+    %p The sign2pay <a class='link' href='https://merchant.sign2pay.com/profile/sign_up' target='_blank'>Merchant Admin</a> is your home for managing your mobile payments.
+    %p
+      Once registered, you’ll have access to setup your application's
+      = succeed "," do
+        %a{:href => "/sections/integrations/client-credentials.html"} client credentials
+      manage API access, get quick dashboard views of your Sign2Pay payment activity and more.
+
+    %p
+      As soon as you’re ready to move beyond testing and get into moving real money, the Merchant Admin is also where you deal with the
+      %a{:href => "/sections/account/overview.html"} “paperwork”
+      side of processing mobile payments.
+
+  .col-sm-4
+    %aside.aside_screenshot
+      %img{:src => "/images/screenshots/account/sign_up.png"}/
+
+.row
+  .col-sm-12
+
+    .step
+      %h3 Next Step
+      %p
+        Your first sign2pay
+        %a.link{:href => "/sections/integrations/your-first-application.html", :target => "_blank"} Client Application
+        \- no coding required...yet.
+        %a.more{:href => "/sections/integrations/your-first-application.html"}
+          Learn More
+          %span.fa.fa-chevron-right
+:javascript
+  s2p.sectionClass = "integrations";
+  s2p.pageClass    = "registration";

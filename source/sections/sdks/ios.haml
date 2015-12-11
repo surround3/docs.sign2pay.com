@@ -1,0 +1,294 @@
+---
+layout: default
+title: SDKs - iOS
+---
+
+.row
+  .col-sm-12
+    %h1 SDKs: iOS
+    %hr
+
+.row
+  .col-sm-8
+
+    %p The approach of marrying the OAuth 2.0 protocol to Sign2Pay's secure mobile payments was dubbed internally as <i>Authature</i>. So far, it's stayed.
+
+    %p Below is the documentation explaining how to use the various functionality and features of the SDK to connect your iOS app to Sign2Pay.
+
+    %h3#setting-up-the-authatureclient Setting up the AuthatureClient
+    %p First create an instance of AuthatureClientSettings to hold your client details:
+
+    %pre
+      %code
+        :preserve
+          AuthatureClientSettings *clientSettings =
+            [[AuthatureClientSettings alloc] initWithClientId:@"your-client-id" callbackUrl:@"your-servers-oauth-callback-url"];
+    %p
+      With this settings object, you can instantiate an AuthatureClient.
+      AuthatureClient uses a UIWebView to load the OAuth2 pages.
+      The delegate gives you control over where this webview ends up in your view hierarchy.
+      More info on the delegate below.
+    .highlight
+      %pre
+        %code
+          :preserve
+            self.client = [[AuthatureClient alloc] initWithSettings:clientSettings
+                                               delegate:authatureDelegate];
+
+    %h3#the-delegate The delegate
+    %p
+      The AuthatureClient uses a UIWebView to go through Authature’s OAuth2 flow.
+      When the AuthatureClient is instantiated, you need to pass it an object which implements the AuthatureDelegate protocol.
+      Your delegate will be used to either obtain a controller to present the UIWebView, or the UIWebView will be passed to the delegate to present and dismiss.
+    %p In the first scenario, simply implement this and return your controller.
+    .highlight
+      %pre
+        %code
+          :preserve
+            - (UIViewController *)controllerForAuthatureWebView;
+
+    %p If you implement the protocol on your controller, it can be as simple as:
+    .highlight
+      %pre
+        %code
+          :preserve
+            - (UIViewController *)controllerForAuthatureWebView{
+              return self;
+            }
+    %p
+      For the second scenario, you can control how the webview is presented and dismissed.
+      Use this approach for instance if you want to animate the transition.
+    .highlight
+      %pre
+        %code
+          :preserve
+            - (void)presentAuthatureWebView:(UIWebView *) webView
+                       completion:(void (^ (void))completion;
+
+            - (void)dismissAuthatureWebView;
+
+    %p
+      The Webview will be dismissed before the token is fetched through your callback url. You may want to present some sort of indicator to your user while this is happening.
+      AuthatureClient will call authatureWebViewGotDismissed right after the webview got dismissed.
+    %p For instance:
+    .highlight
+      %pre
+        %code
+          :preserve
+            - (void)authatureWebViewGotDismissed{
+                self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                [self.hud setLabelText:@"Fetching token"];
+            }
+
+    %p In the callbacks (see below) you can hide the hud again.
+    %p The webView will only be presented when the first page is completely loaded. It is probably best to show some sort if indicator that authature is loading. You can do this by implementing authatureWebViewLoadStarted and authatureWebViewReady;
+    .highlight
+      %pre
+        %code
+          :preserve
+            -(void)authatureWebViewLoadStarted{
+                self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            }
+
+            - (void)authatureWebViewReady{
+                [self.hud hide:YES];
+            }
+
+
+    %h3#starting-an-authature-flow Starting an Authature flow
+    %p
+      Depending on your setup Authature supports different scopes.
+      You can start the flow for any of these scopes by calling the corresponding method.
+      The userParams object holds properties for email, firstName and lastName.
+      These values will be used as parameters in the Authature flow.
+      All these methods have two blocks as parameters, a successCallback and an errorCallback.
+    %p (note, since these blocks will be called in an async fashion, its is best to keep a strong reference to the client object)
+    %p Start a flow for the capture scope (to capture the signature)
+    .highlight
+      %pre
+        %code
+          :preserve
+            [client startAuthatureFlowForSignatureCaptureWithUserParams:userParams
+                                                                success:^(NSDictionary *accessToken) {
+                                                                        //ok
+                                                                }
+                                                              andFailure:^(NSString *code, NSString *description) {
+                                                                        //fail
+                                                              }
+            ];
+
+    %p Authenticate scope (to authenticate the user)
+    .highlight
+      %pre
+        %code
+          :preserve
+            [client startAuthatureFlowForAuthenticationWithUserParams:userParams
+                                                              success:^(NSDictionary *accessToken) {
+                                                                        //ok
+                                                              }
+                                                            andFailure:^(NSString *code, NSString *description) {
+                                                                        //fail
+                                                            }
+            ];
+
+
+
+    %p PreApprove scope (to preapprove payments)
+    .highlight
+      %pre
+        %code
+          :preserve
+            [client startAuthatureFlowForPreapprovalWithUserParams:userParams
+                                                          success:^(NSDictionary *accessToken) {
+                                                                        //ok
+                                                          }
+                                                        andFailure:^(NSString *code, NSString *description) {
+                                                                        //fail
+                                                        }
+            ];
+
+    %p If you want a combination of scopes you can call the more generic method:
+    .highlight
+      %pre
+        %code
+          :preserve
+            [client startAuthatureFlowForScope:@"authenticate,preapprove"
+                    withUserParams:userParams
+                          success:^(NSDictionary *accessToken) {
+                                  //ok
+                          }
+                       andFailure:^(NSString *code, NSString *description) {
+                                  //fail
+                       }
+            ];
+    %h3#token-storage Token storage
+    %p
+      The AuthatureClient can be configured to automatically store a token per requested scope (disabled by default).
+      If you turn on this feature, the AuthatureClient will use this token to send user params into the Authature flow if a new token is requested. This way, your users don’t have to re-enter their details when going through the flow.
+    %p Turn it on like this:
+    .highlight
+      %pre
+        %code
+          authatureClient.automaticTokenStorageEnabled = TRUE;
+
+    %p If you want to get the automatically stored token for a scope:
+    .highlight
+      %pre
+        %code
+          [authatureClient getStoredTokenForScope:AUTHATURE_SCOPE_PRE_APPROVAL];
+
+    %p You can destroy a stored token like this:
+    .highlight
+      %pre
+        %code
+          [authatureClient destroyStoredTokenForScope:AUTHATURE_SCOPE_PRE_APPROVAL];
+
+    %h3#authatureaccesstokenstorage AuthatureAccessTokenStorage
+    %p
+      You can also conveniently interact with the token storage class directly to add/remove your tokens.
+      Tokens are organized by clientId and a key per token.
+    %p TIP: A good candidate for the key is the token value of the access token.
+    %p Store a token like this:
+    .highlight
+      %pre
+        %code
+          :preserve
+            [AuthatureAccessTokenStorage saveAccessToken:accessToken
+                                             forClientId:clientId
+                                                 withKey:accessToken[@"token"];
+
+    %p Reading a token:
+    .highlight
+      %pre
+        %code
+          :preserve
+            return [AuthatureAccessTokenStorage getAccessTokenForClientId:clientId
+                                                                    andKey:"123"];
+
+    %p Delete a token:
+    .highlight
+      %pre
+        %code
+          :preserve
+            [AuthatureAccessTokenStorage destroyAccessTokenForClientId:clientId
+                                                                andKey:accessToken[@"token"]];
+
+    %h3#token-verification Token verification
+    %p
+      You can use the AuthatureClient instance to verify if a token is (still) valid for a certain scope.
+      You can do so by calling:
+    .highlight
+      %pre
+        %code
+          :preserve
+            [authatureClient verifyValidity:token
+                                  forScope:AUTHATURE_SCOPE_PRE_APPROVAL
+                                  callBack:^(BOOL valid, NSDictionary *dictionary) {}
+                             errorCallBack:^(NSError *error) {}];
+
+    %p If you are using the automatic token storage, you can verify the stored token by calling:
+    .highlight
+      %pre
+        %code
+          :preserve
+            [authatureClient verifyStoredTokenValidityforScope:AUTHATURE_SCOPE_PRE_APPROVAL
+                                                      callBack:^(BOOL tokenIsValid, NSDictionary *responseObject) {}
+                                                 errorCallBack:^(NSError *error) {}];
+
+    %h3#ui-components UI Components
+    %p
+      When Authature is combined with Sign2Pay, a token can be linked to a bank account.
+      For conversion reasons, you may want to display the logos of supported banks in your app.
+      When you have a preapproved scope token, you may want to show the logo of the bank associated to that token.
+    %p UIImageView+Authature and UIButton+Authature add methods to UIImageView and UIButton to make this happen.
+    %h3#bank-logos-based-on-ip Bank logos based on IP
+    %p On a  UIImage:
+    .highlight
+      %pre
+        %code
+          [imageView useAsAuthatureBankLogos];
+
+    %p On a UIButton:
+    .highlight
+      %pre
+        %code
+          [button useAuthatureBankLogos];
+
+    %h3#bank-logos-for-a-specific-country-code Bank logos for a specific country code
+    %p On a UIImage
+    .highlight
+      %pre
+        %code
+          [imageView useAsAuthatureBankLogosForCountryCode:@"BE"];
+
+    %p On a UIButton:
+    .highlight
+      %pre
+        %code
+          [button useAuthatureBankLogosForCountryCode:@"BE"];
+
+    %h3#the-bank-logo-linked-to-a-token The bank logo linked to a token:
+    %p On a UIView
+    .highlight
+      %pre
+        %code
+          [imageView useAsAuthatureBankLogosWithToken:tokenForCheckout];
+
+    %p On a UIButton
+    .highlight
+      %pre
+        %code
+          [button useAuthatureBankLogosWithToken:tokenForCheckout];
+
+  .col-sm-4
+    %aside.aside_screenshot
+      %img{:src => "/images/screenshots/rotate.png"}/
+
+    %p
+      If you’d like to see your language of choice added to the list of SDKs,
+      = succeed "!" do
+        %a{:href => "mailto:support@sign2pay.com?subject=Sign2Pay SDKs"} drop us a line
+
+:javascript
+  s2p.sectionClass = "sdks";
+  s2p.pageClass    = "ios";
