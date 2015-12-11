@@ -12,7 +12,7 @@ title: Conversion Optimisation - The Button
   .col-sm-8
     %p At Sign2Pay, we want to empower our merchants with as many tools as we can to assist in the challenge of converting visitors to customers.
 
-    %p One of the easiest conversion gains our merchants can realise is a simple change to the S2P Payment Button in their checkout page.
+    %p One of the easiest conversion gains our merchants can realise is a simple change to the Sign2Pay Payment Button in their checkout page.
 
     %h4 GeoLocation
     %p By default, a request to our banks/logo.gif will display an animated gif showing the 4 major banks for the request's country of origin.
@@ -72,3 +72,7 @@ title: Conversion Optimisation - The Button
         Pay with your Debit Card
 
     %p All images from the banks/logo api are served as square, 100px x 100px. From a frontend perspective, this is no different that adding any other image to your checkout. Use this for your payment button to let your users know they can Sign2Pay via their bank account.
+
+:javascript
+  s2p.sectionClass = "integrations";
+  s2p.pageClass    = "the-button";
