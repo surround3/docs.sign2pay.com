@@ -5,7 +5,7 @@ This is the source for [docs.sign2pay.com](http://docs.sign2pay.com).
 
 ## Middleman
 
-These docs are now generated using the excellent [Middleman Farmework](https://middlemanapp.com).
+These docs are now generated using the excellent [Middleman Framework](https://middlemanapp.com).
 
 ## Installation
 
