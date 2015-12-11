@@ -10,7 +10,17 @@ title: Pre-Approved Payments
 
 .row
   .col-sm-8
-    %p Sign2Pay allows you to ask for your users permission to charge their account without making a payment at the time. This allows you to implement features like Subscription Based, Recurring, One Click Payments and more.
+    %p Companies like Amazon, UBER &amp; Sign2Pay are championing the benefits of "frictionless payments".
+
+    %p Making the process of paying disappear into the background consistently demonstrates a dramatic increase in both conversion rates, and transaction amounts.
+
+    %p The initial setup for a Sign2Pay's Pre-Approved Payment integration is similar to other integration approaches, but instead of making a one time <a href='sections/api/payments/authorize-capture.html'> Payment Request</a>, an Access Token with the <code>preapproval</code> scope can be saved, and used at any time.
+
+    %p With your pre-approved Access Token, you'll first <a href="/sections/api/payments/authorize.html">Authorize</a> a payment to ensure the Access Token is still valid, and that Sign2Pay is willing to process your payment.
+
+    %p Then, with the <code>authorization_id</code> returned by a successful <a href="/sections/api/payments/authorize.html">Authorization Request</a>, you'll make a <a href="">Capture Request</a> to finalize your payment.
+
+    %p With this integration type, your consumers can easily link their Bank Account to your site for you to implement you own <i>One Click</i> style payments and go <i>frictionless</i>!
 
   .col-sm-4
     %aside.aside_note
