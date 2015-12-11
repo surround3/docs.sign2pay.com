@@ -66,6 +66,7 @@ $flagsImageExtension: "png" !default;
 
   // specify types to increase specificity e.g. to override bootstrap v2.3
   input, input[type=text], input[type=tel] {
+    width:100%;
     position: relative;
     // input is bottom level, below selected flag and dropdown
     z-index: 0;
