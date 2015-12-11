@@ -1,27 +1,43 @@
 ---
 layout: default
-title: SMS Payments
+title: On-Demand Payments
 ---
 
 .row
   .col-sm-12
-    %h1 SMS Payments
+    %h1 On-Demand SMS Payments
     %hr
 
 .row
   .col-sm-8
 
-    %p This is brand spanking new, but coming to market soon!
+    %p If you haven't tried out the <i>Seeing is Believing</i> example yet, now's the time. This is an example of an On-Demand Payment.
 
-    %p
-      We're still finishing off the documentation, but
-      %a{:href => "mailto:hello@sign2pay.com"} drop us a line
-      if you’re too excited to wait and we’ll tell you all about it.
+    %p This integration type a bit different than the others as a payment link is generated either via your <a href="https://merchant.sign2pay.com">Merchant Admin</a>, or via the <a href="/sections/api/sms.html">SMS API</a>.
+
+    %p From a user perspective, the process is similar to an <a href="/sections/payments/m-commerce/overview.html">M-Commerce Payment</a>. One of the main differences here being the flow after a successful Authorization Grant is handled in the background on our end - no need to do anything except wait for a completed payment.
+
+    %p If you are creating On-Demand Payments via API, this is handled by polling the status of an SMS payment, by using one of our webhooks, or both.
+
 
   .col-sm-4
-    %aside.aside_screenshot
-      %img{:src => "/images/screenshots/sms.jpeg"}/
+    %aside.aside_note
+      %h4 Seeing is Believing?
+      %p Try it here! Enter your mobile below and we'll send you a link to sign.
+      %form#submit_sms_form{"accept-charset" => "UTF-8", :action => "https://authature.com/sms", "data-remote" => "true", :method => "post"}
+        %input{:name => "utf8", :type => "hidden", :value => "✓"}/
+        .form-group
+          %input#display_phone.form-control.input-lg{:autocapitalize => "off", :autocompletetype => "phone-full", :autocorrect => "off", :name => "phone", :spellcheck => "off", :type => "tel", "x-autocompletetype" => "phone-full"}
+            %input#phone{:name => "phone", :type => "hidden"}
+        .form-group
+          %button#submit_sms_button.btn.btn-flat.btn-labeled.btn-info.btn-lg.btn-block.text-lg.text-slim{:type => "button"}
+            %span.btn-label.icon.fa.fa-lock
+            %span.sk-text
+              Pay €19.99
+      %p
+        When asked for a bank account, use your IBAN or one of our test formats if you like:
+        %code.menlo ZZ12 1234 1234 1234
 
 :javascript
   s2p.sectionClass = "payments";
-  s2p.pageClass    = "sms";
+  s2p.pageClass    = "on-demand";

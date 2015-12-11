@@ -31,6 +31,8 @@ To deploy the site:
 bundle exec middleman deploy
 ```
 
+> Make sure you call this from ```source``` and it seems like you need to ensure there is no build dir already in your root.
+
 ###Note:
 
 Using this workflow, you will work only in the source branch and *not touch* the gh-pages branch. Life is good.
