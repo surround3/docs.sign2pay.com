@@ -1,19 +1,22 @@
 ---
 layout: default
-title: Payments
+title: M-Commerce - Online Payments
 ---
 
 .row
   .col-sm-12
-    %h1 Overview
+    %h1 M-Commerce - Online Payments
     %hr
 
 .row
   .col-sm-8
+    %p Sign2Pay was started with M-Commerce Payments in mind. This is the payment traditionally made at the end of an online checkout. Supported by a secure API, server and client side integration is quick, easy, while robust enough to be flexible.
 
-    %p Sign2pay offers a few different approaches to processing payments. While there are many ways to implement, these approaches can be divided into two main categories: <a href="/sections/payments/on-demand/overview.html">On-Demand</a> and <a href="/sections/payments/preapproval/overview.html">Pre-Approved</a>.
+    %p To integrate Sign2Pay for M-Commerce payments, you'll add an element/button to your selection of payment methods that lets your consumers know they can pay using their bank account.
 
-    %p We're also pretty excited about our new <a href="/sections/payments/sms/overview.html">SMS Payments</a>, but more about that later ;)
+    %p Once your <a href='/sections/integrations/button.html'>Sign2Pay Element</a> is in place, please follow the flow outlined in <a href="/sections/integrations/approaches.html">Payment Integration</a> section of the Integration Guide to initiate the authorization process.
+
+    %p Once you have an Access Token, you'll use it to immediately make a one time <a href='sections/api/payments/authorize-capture.html'> Payment Request</a>.
 
   .col-sm-4
     %aside.aside_note
@@ -32,8 +35,7 @@ title: Payments
       %p
         When asked for a bank account, use your IBAN or one of our test formats if you like:
         %code.menlo ZZ12 1234 1234 1234
-.row
 
 :javascript
   s2p.sectionClass = "payments";
-  s2p.pageClass    = "overview";
+  s2p.pageClass = "m-commernce";

@@ -23,6 +23,24 @@
             %a.overview{:href => "/"}
               %span Getting Started
 
+          %li.doc_section{"data-section" => "payments"}
+            %a{"data-parent" => "#categories", "data-toggle" => "collapse", :href => "#payment_pages"}
+              %span Payments
+            %ul#payment_pages.pages.collapse
+
+              %li
+                %a.m-commerce{:href => "/sections/payments/m-commerce/overview.html"}
+                  %span M-Commerce
+              %li
+                %a.pre-approved{:href => "/sections/payments/pre-approved/overview.html"}
+                  %span Pre-Approved
+              %li
+                %a.subscriptions{:href => "/sections/payments/subscriptions/overview.html"}
+                  %span Subscriptions
+              %li
+                %a.on-demand{:href => "/sections/payments/on-demand/overview.html"}
+                  %span On-Demand
+
           %li.doc_section{"data-section" => "integrations"}
             %a{"data-parent" => "#categories", "data-toggle" => "collapse", :href => "#quickstart_pages"}
               %span Integration Guide
@@ -36,7 +54,11 @@
               %li
                 %a.client-credentials{:href => "/sections/integrations/client-credentials.html"} Client Credentials
               %li
+                %a.the-button{:href => "/sections/integrations/button.html"} The Button
+              %li
                 %a.approaches{:href => "/sections/integrations/approaches.html"} Payment Integration
+              %li
+                %a.localization{:href => "/sections/integrations/localization.html"} Localization
               %li.todo
                 %a.ux{:href => "/sections/integrations/ux.html"} User Experience
               %li
@@ -45,22 +67,6 @@
                 %a.errors{:href => "/sections/integrations/errors.html"} Handling Errors
               %li.todo
                 %a.testing{:href => "/sections/integrations/testing.html"} Testing
-
-          %li.doc_section{"data-section" => "payments"}
-            %a{"data-parent" => "#categories", "data-toggle" => "collapse", :href => "#payment_pages"}
-              %span Payments
-            %ul#payment_pages.pages.collapse
-              %li
-                %a.overview{:href => "/sections/payments/overview.html"} Overview
-              %li
-                %a.on-demand{:href => "/sections/payments/on-demand/overview.html"}
-                  %span Online Payments
-              %li
-                %a.preapproval{:href => "/sections/payments/preapproval/overview.html"}
-                  %span Pre-Approved Payments
-              %li
-                %a.sms{:href => "/sections/payments/sms/overview.html"}
-                  %span SMS Payments
 
           %li.doc_section{"data-section" => "account"}
             %a{"data-parent" => "#categories", "data-toggle" => "collapse", :href => "#account_pages"}
@@ -135,8 +141,6 @@
                 %a.merchant{:href => "/sections/faq/merchant.html"} Merchant
               %li
                 %a.developer{:href => "/sections/faq/developer.html"} Developer
-
-
 
       %section.main-content.container
 

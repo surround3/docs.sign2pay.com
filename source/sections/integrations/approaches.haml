@@ -14,9 +14,6 @@ title: Integrations
 
     %p In order to complete a purchase, you should implement the flow described below in your application.  For On-Demand payment integration, the flow <em>must</em> include these 3 sequential steps: requesting access permission, obtaining an access token, and requesting the payment.
 
-    -# %p Regardless of your specific implementation, the process of obtaining an Access Token remains the same.
-
-
 .row
   .col-sm-12
     %ul#uidemo-tabs-default-demo.nav.nav-tabs
@@ -32,7 +29,6 @@ title: Integrations
         %a{"data-toggle" => "tab", :href => "#payment_request"}
           3. Requesting Payment
 
-      / / .dropdown
     .tab-content.tab-content-bordered
 
       #request_access.tab-pane.panel-padding.fade.active.in
@@ -55,7 +51,7 @@ title: Integrations
 
         %p This is accomplished through a GET request to the authorization URI while including some required parameters.  This is where a user will identify themselves and authorize your request with their signature.
         %p For on-demand payments, you must include <code>client_id</code>, <code>response_type</code>, <code>redirect_uri</code>, <code>scope</code>, <code>state</code>, <code>device_uid</code>, <code>amount</code>, and <code>ref_id</code> parameters with the GET request.
-        %p It is important to note that sign2pay employs the idea of <i>Progressive Registration</i>. This means that you can provide as much or as little user detail that you have available at the time, and the Identification portion of the process will request the missing detail.
+        %p It is important to note that Sign2Pay employs the idea of <i>Progressive Registration</i>. This means that you can provide as much or as little user detail that you have available at the time, and the Identification portion of the process will request the missing detail.
         %p You can provide additonal user detail when building your payment link by passing in the optional user_params object.
 
         %table.arguments
@@ -70,12 +66,12 @@ title: Integrations
               %td.param client_id
               %td.required.yes yes
               %td.format Number
-              %td.description The client id issued to your sign2pay Client Application.
+              %td.description The client id issued to your Sign2Pay Client Application.
             %tr
               %td.param redirect_uri
               %td.required.yes yes
               %td.format String
-              %td.description The uri the user will be redirected to after authorization. Must have the same domain as the application. Must match the redirect_uri specified in the sign2pay Merchant Admin application settings.
+              %td.description The uri the user will be redirected to after authorization. Must have the same domain as the application. Must match the redirect_uri specified in the Sign2Pay Merchant Admin application settings.
             %tr
               %td.param scope
               %td.required.yes yes
@@ -107,6 +103,12 @@ title: Integrations
               %td.required.no yes/no
               %td.format String
               %td.description When requesting the <strong>payment</strong> scope, your unique id for your purchase <strong>is</strong> required. Otherwise, it is optional.
+
+            %tr
+              %td.param locale
+              %td.required.no no
+              %td.format String
+              %td.description The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2 code</a> reflecting the language to render the Sign2Pay UI in.
 
             %tr
               %td.param user_params[identifier]
@@ -241,7 +243,7 @@ title: Integrations
               %td.param client_id
               %td.required.yes yes
               %td.format Number
-              %td.description The client id issued to your sign2pay Client Application.
+              %td.description The client id issued to your Sign2Pay Client Application.
             %tr
               %td.param code
               %td.required.yes yes
@@ -257,7 +259,7 @@ title: Integrations
               %td.param redirect_uri
               %td.required.yes yes
               %td.format String
-              %td.description The uri the user will be redirected to after payment.  Must have the same domain as the application. Must match the redirect_uri specified in the sign2pay Merchant Admin application settings.
+              %td.description The uri the user will be redirected to after payment.  Must have the same domain as the application. Must match the redirect_uri specified in the Sign2Pay Merchant Admin application settings.
 
         %h4 Example Request Header:
 
@@ -371,7 +373,7 @@ title: Integrations
               %td.param client_id
               %td.required.yes yes
               %td.format Number
-              %td.description The client ID issued to your sign2pay Client Application.
+              %td.description The client ID issued to your Sign2Pay Client Application.
             %tr
               %td.param amount
               %td.required.no yes

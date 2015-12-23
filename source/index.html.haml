@@ -11,17 +11,25 @@ title: Sign2pay - Secure Mobile Payments
 .row
   .col-sm-8
 
-    %p At sign2pay, we think about mobile payments a little bit differently. Unlike many current payment methods, we want to provide a solution that is robust while being easy to integrate and conversion driven.
+    %p At Sign2Pay, we think about mobile payments a little bit differently. Unlike many current payment methods, we want to provide a solution that is robust while being easy to integrate and conversion driven.
 
     %p This is what led us to go back to the basics and develop a payment platform which is built on the simple notion of asking <i>permission</i>.
 
     %p Whenever you use your Google Account or Facebook to sign into a third party website, you log into your account and grant that website permission to access parts of your account: First Name, Last Name, Email etc.
 
-    %p Our approach is a bit different in that instead of a valid password to grant access, the user is asked to authenticate their personal signature. In doing so, the user has thereby granted sign2pay <i>permission</i> to complete your payment request.
+    %p Our approach is a bit different in that instead of a valid password to grant access, the user is asked to authenticate their personal signature. In doing so, the user has thereby granted Sign2Pay <i>permission</i> to complete your payment request.
 
-    %p From traditional <a href="/sections/payments/on-demand/overview.html">eCommerce</a> payments, to <a href="/sections/payments/preapproval/overview.html">preapproved</a> or subscription based payments, to sending a payment link via <a href="/sections/payments/sms/overview.html">SMS</a> - we want to make it as easy as possible for you to convert your prospects into customers.
+    %p From <a href="/sections/payments/m-commerce/overview.html">M-Commerce</a> payments, to <a href="/sections/payments/pre-approved/overview.html">Pre-Approved</a> or <a href="/sections/payments/subscription/overview.html">Subscription</a> based payments, to sending an <a href="/sections/payments/on-demand/overview.html">On-Demand</a> payment link via - we want to make it as easy as possible for you to convert your prospects into customers.
 
-    %p This documentation will take you through the ins and outs of getting up and running with sign2pay.
+    %p This documentation will take you through the ins and outs of getting up and running with Sign2Pay.
+
+    %hr
+
+    .note
+      <img src="https://app.sign2pay.com/api/v2/banks/logo.gif" width="60" />
+      %span.text-lg.panel-padding
+        Sign2Pay with your Bank Account
+
 
   .col-sm-4
     %aside.aside_note
@@ -39,7 +47,7 @@ title: Sign2pay - Secure Mobile Payments
               Pay €19.99
       %p
         When asked for a bank account, use your IBAN or one of our test formats if you like:
-        %code.menlo ZZ12 1234 1234 1234
+      %code.menlo ZZ12 1234 1234 1234
 .row
   .col-sm-12
     .step
@@ -47,7 +55,7 @@ title: Sign2pay - Secure Mobile Payments
       %p
         First things first - you'll need a
         = succeed "." do
-          %a.link{:href => "https://merchant.sign2pay.com/profile/sign_up", :target => "_blank"} sign2pay Merchant Account
+          %a.link{:href => "https://merchant.sign2pay.com/profile/sign_up", :target => "_blank"} Sign2Pay Merchant Account
         Don't worry, it's free, easy to setup, and you can start testing your mobile payments right away.
         %a.more{:href => "/sections/integrations/registration.html"}
           Learn More

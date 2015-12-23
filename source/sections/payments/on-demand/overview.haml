@@ -5,14 +5,21 @@ title: On-Demand Payments
 
 .row
   .col-sm-12
-    %h1 Online Payments
+    %h1 On-Demand SMS Payments
     %hr
 
 .row
   .col-sm-8
-    %p Sign2Pay started with, and has been perfecting traditional eCommerce Payments ever since. Supported by a secure API, server and client side integration is quick, easy, while robust enough to be flexible.
 
-    %p To integrate Sign2Pay for eCommerce payments, please follow the flow outlined in <a href="/sections/integrations/approaches.html">Payment Integration</a> section of the Integration Guide.
+    %p If you haven't tried out the <i>Seeing is Believing</i> example yet, now's the time. This is an example of an On-Demand Payment.
+
+    %p This integration type a bit different than the others as a payment link is generated either via your <a href="https://merchant.sign2pay.com">Merchant Admin</a>, or via the <a href="/sections/api/sms.html">SMS API</a>.
+
+    %p From a user perspective, the process is similar to an <a href="/sections/payments/m-commerce/overview.html">M-Commerce Payment</a>. One of the main differences here being the flow after a successful Authorization Grant is handled in the background on our end - no need to do anything except wait for a completed payment.
+
+    %p If you are creating On-Demand Payments via API, this is handled by polling the status of an SMS payment, by using one of our webhooks, or both.
+
+
   .col-sm-4
     %aside.aside_note
       %h4 Seeing is Believing?
@@ -33,4 +40,4 @@ title: On-Demand Payments
 
 :javascript
   s2p.sectionClass = "payments";
-  s2p.pageClass = "on-demand";
+  s2p.pageClass    = "on-demand";

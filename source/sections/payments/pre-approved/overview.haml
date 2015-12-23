@@ -1,0 +1,45 @@
+---
+layout: default
+title: Pre-Approved Payments
+---
+
+.row
+  .col-sm-12
+    %h1 Pre-Approved Payments
+    %hr
+
+.row
+  .col-sm-8
+    %p Companies like Amazon, UBER &amp; Sign2Pay are championing the benefits of "frictionless payments".
+
+    %p Making the process of paying disappear into the background consistently demonstrates a dramatic increase in both conversion rates, and transaction amounts.
+
+    %p The initial setup for a Sign2Pay's Pre-Approved Payment integration is similar to other integration approaches, but instead of making a one time <a href='sections/api/payments/authorize-capture.html'> Payment Request</a>, an Access Token with the <code>preapproval</code> scope can be saved, and used at any time.
+
+    %p With your pre-approved Access Token, you'll first <a href="/sections/api/payments/authorize.html">Authorize</a> a payment to ensure the Access Token is still valid, and that Sign2Pay is willing to process your payment.
+
+    %p Then, with the <code>authorization_id</code> returned by a successful <a href="/sections/api/payments/authorize.html">Authorization Request</a>, you'll make a <a href="/sections/api/payments/capture.html">Capture</a> request to finalize your payment.
+
+    %p With this integration type, your consumers can easily link their Bank Account to your site for you to implement you own <i>One Click</i> style payments and go <i>frictionless</i>!
+
+  .col-sm-4
+    %aside.aside_note
+      %h4 Seeing is Believing?
+      %p Try it here! Enter your mobile below and we'll send you a link to sign.
+      %form#submit_sms_form{"accept-charset" => "UTF-8", :action => "https://authature.com/sms", "data-remote" => "true", :method => "post"}
+        %input{:name => "utf8", :type => "hidden", :value => "✓"}/
+        .form-group
+          %input#display_phone.form-control.input-lg{:autocapitalize => "off", :autocompletetype => "phone-full", :autocorrect => "off", :name => "phone", :spellcheck => "off", :type => "tel", "x-autocompletetype" => "phone-full"}
+            %input#phone{:name => "phone", :type => "hidden"}
+        .form-group
+          %button#submit_sms_button.btn.btn-flat.btn-labeled.btn-info.btn-lg.btn-block.text-lg.text-slim{:type => "button"}
+            %span.btn-label.icon.fa.fa-lock
+            %span.sk-text
+              Pay €19.99
+      %p
+        When asked for a bank account, use your IBAN or one of our test formats if you like:
+        %code.menlo ZZ12 1234 1234 1234
+
+:javascript
+  s2p.sectionClass = "payments";
+  s2p.pageClass = "pre-approved";

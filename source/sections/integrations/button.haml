@@ -1,0 +1,78 @@
+---
+layout: default
+title: Conversion Optimisation - The Button
+---
+
+.row
+  .col-sm-12
+    %h1 Conversion Optimisation - The Button
+    %hr
+
+.row
+  .col-sm-8
+    %p At Sign2Pay, we want to empower our merchants with as many tools as we can to assist in the challenge of converting visitors to customers.
+
+    %p One of the easiest conversion gains our merchants can realise is a simple change to the Sign2Pay Payment Button in their checkout page.
+
+    %h4 GeoLocation
+    %p By default, a request to our banks/logo.gif will display an animated gif showing the 4 major banks for the request's country of origin.
+
+    %pre
+      %code
+        :preserve
+          &lt;img src=&quot;https://app.sign2pay.com/api/v2/banks/logo.gif&quot; width=&quot;60&quot; /&gt;
+
+    .note
+      <img src="https://app.sign2pay.com/api/v2/banks/logo.gif" width="60" />
+      %span.text-lg.panel-padding
+        Sign2Pay with your Bank Account
+
+    %hr
+
+    %h4 Country Specific
+
+    %p If you want to display the primary banks for a specific country code, add the 2 digit iso 3166-1 code as a query param in the image src attribute.
+
+
+    %pre
+      %code
+        :preserve
+          &lt;img src=&quot;https://app.sign2pay.com/api/v2/banks/logo.gif?country_code=NL&quot; width=&quot;60&quot; /&gt;
+
+    .note
+      <img src="https://app.sign2pay.com/api/v2/banks/logo.gif?country_code=NL" width="60" />
+      %span.text-lg.panel-padding
+        Sign2Pay with your Bank Account
+
+    %hr
+
+    %h4 Consumers Bank
+
+    %p If you have the users email, you can add an md5 hash of the email as a query param in the image src attribute. If this user has already created a Sign2Pay account and added their IBAN, the logo of their bank will be displayed. This call falls back to the animated gif showing the 4 major banks for the request's country of origin if the email is unknown to us.
+
+    %pre
+      %code
+        :preserve
+          &lt;img src=&quot;https://app.sign2pay.com/api/v2/banks/logo.gif?email=604a14c6685bef4587ab436c6f9655f3&quot; width=&quot;60&quot; /&gt;
+
+    .note
+      <img src="https://app.sign2pay.com/api/v2/banks/logo.gif?email=604a14c6685bef4587ab436c6f9655f3" width="60" />
+      %span.text-lg.panel-padding
+        Sign2Pay with your Bank Account
+
+    %hr
+
+    %h4 Fallback
+
+    %p As a final fallback, if the country_code cannot be determined via geolocation, OR if the resulting country_code reflects a country not currently supported by Sign2Pay, https://app.sign2pay.com/banks/default.png is displayed.
+
+    .note
+      <img src="https://app.sign2pay.com/banks/default.png" width="60" />
+      %span.text-lg.panel-padding
+        Sign2Pay with your Bank Account
+
+    %p All images from the banks/logo api are served as square, 100px x 100px. From a frontend perspective, this is no different that adding any other image to your checkout. Use this for your payment button to let your users know they can Sign2Pay via their bank account.
+
+:javascript
+  s2p.sectionClass = "integrations";
+  s2p.pageClass    = "the-button";

@@ -1,16 +1,23 @@
 ---
 layout: default
-title: Pre-Approved Payments
+title: Subscription Payments
 ---
 
 .row
   .col-sm-12
-    %h1 Pre-Approved Payments
+    %h1 Subscription Payments
     %hr
 
 .row
   .col-sm-8
-    %p Sign2Pay allows you to ask for your users permission to charge their account without making a payment at the time. This allows you to implement features like Subscription Based, Recurring, One Click Payments and more.
+
+    %p Implementing Subscription Payments is exactly the same as a <a href="/sections/payments/pre-approved/overview.html">Pre-Approved</a> integration.
+
+    %p With your pre-approved Access Token, you'll first <a href="/sections/api/payments/authorize.html">Authorize</a> a payment to ensure the Access Token is still valid, and that Sign2Pay is willing to process your payment.
+
+    %p Then, with the <code>authorization_id</code> returned by a successful <a href="/sections/api/payments/authorize.html">Authorization Request</a>, you'll make a <a href="/sections/api/payments/capture.html">Capture</a> request to finalize your payment.
+
+    %p With this integration type, your weekly, monthly, annual subcriptions are already authorized and waiting to be paid for!
 
   .col-sm-4
     %aside.aside_note
@@ -32,4 +39,4 @@ title: Pre-Approved Payments
 
 :javascript
   s2p.sectionClass = "payments";
-  s2p.pageClass = "preapproval";
+  s2p.pageClass = "subscriptions";
