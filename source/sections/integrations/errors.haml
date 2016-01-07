@@ -7,75 +7,172 @@ title: Integrations - Handling Errors
   .col-sm-12
     %h1 Handling Errors
     %hr
+
 .row
-  .col-sm-8
+  .col-sm-12
 
-    %table.arguments
-      %thead
-        %tr
-          %th Error
-          %th Error Description
-          %th Code
+    %p In general, there are two classes of errors you can encounter. A <a href="#client">Client Error</a> occurs when your Client Application settings are missing, incorrect, or do not match what we have stored.
 
-      %tbody
-        %tr
-          %td{:style => "text-align: left"} invalid_request
-          %td{:style => "text-align: left"} The request is missing a required parameter, includes an unsupported parameter value, or is otherwise malformed.
-          %td{:style => "text-align: right"} 400
-        %tr
-          %td{:style => "text-align: left"} unauthorized_client
-          %td{:style => "text-align: left"} The client is not authorized to request an access token using this method.
-          %td{:style => "text-align: right"} 401
-        %tr
-          %td{:style => "text-align: left"} access_denied
-          %td{:style => "text-align: left"} The user or authorization server denied the request.
-          %td{:style => "text-align: right"} 403
-        %tr
-          %td{:style => "text-align: left"} unsupported_response_type
-          %td{:style => "text-align: left"} The authorization server does not support this response type.
-          %td{:style => "text-align: right"} 400
-        %tr
-          %td{:style => "text-align: left"} invalid_scope
-          %td{:style => "text-align: left"} The requested scope is invalid, unknown, or malformed.
-          %td{:style => "text-align: right"} 400
-        %tr
-          %td{:style => "text-align: left"} server_error
-          %td{:style => "text-align: left"} The authorization server encountered an unexpected condition that prevented it from fulfilling the request.
-          %td{:style => "text-align: right"} &nbsp;
-        %tr
-          %td{:style => "text-align: left"} temporarily_unavailable
-          %td{:style => "text-align: left"} The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.
-          %td{:style => "text-align: right"} &nbsp;
-        %tr
-          %td{:style => "text-align: left"} missing_state
-          %td{:style => "text-align: left"} Client is not passing state param. This is required for your own protection.
-          %td{:style => "text-align: right"} 400
-        %tr
-          %td{:style => "text-align: left"} invalid_client
-          %td{:style => "text-align: left"} Client authentication failed
-          %td{:style => "text-align: right"} 401
-        %tr
-          %td{:style => "text-align: left"} invalid_grant
-          %td{:style => "text-align: left"} The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.
-          %td{:style => "text-align: right"} 400
-        %tr
-          %td{:style => "text-align: left"} unsupported_grant_type
-          %td{:style => "text-align: left"} The authorization grant type is not supported by the authorization server.
-          %td{:style => "text-align: right"} 400
-        %tr
-          %td{:style => "text-align: left"} invalid_token
-          %td{:style => "text-align: left"} The access token was revoked, has expired, or is invalid
-          %td{:style => "text-align: right"} 400
+    %p An <a href="#auth">Authorization Error</a> occurs when we the Client Application settings are correct, but are unable to proceed with a transaction.
+
+.row
+  .col-sm-12
+    .step
+      %h3#client Client Errors:
+
+      %table.arguments
+        %thead
+          %tr
+            %th Error
+            %th Error Description
+            %th Code
+
+        %tbody
+          %tr
+            %td{:style => "text-align: left"} invalid_request
+            %td{:style => "text-align: left"} The request is missing a required parameter, includes an unsupported parameter value, or is otherwise malformed.
+            %td{:style => "text-align: right"} 400
+          %tr
+            %td{:style => "text-align: left"} unauthorized_client
+            %td{:style => "text-align: left"} The client is not authorized to request an access token using this method.
+            %td{:style => "text-align: right"} 401
+          %tr
+            %td{:style => "text-align: left"} unsupported_response_type
+            %td{:style => "text-align: left"} The authorization server does not support this response type.
+            %td{:style => "text-align: right"} 400
+          %tr
+            %td{:style => "text-align: left"} invalid_scope
+            %td{:style => "text-align: left"} The requested scope is invalid, unknown, or malformed.
+            %td{:style => "text-align: right"} 400
+          %tr
+            %td{:style => "text-align: left"} server_error
+            %td{:style => "text-align: left"} The authorization server encountered an unexpected condition that prevented it from fulfilling the request.
+            %td{:style => "text-align: right"} &nbsp;
+          %tr
+            %td{:style => "text-align: left"} temporarily_unavailable
+            %td{:style => "text-align: left"} The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.
+            %td{:style => "text-align: right"} &nbsp;
+          %tr
+            %td{:style => "text-align: left"} missing_state
+            %td{:style => "text-align: left"} Client is not passing state param. This is required for your own protection.
+            %td{:style => "text-align: right"} 400
+          %tr
+            %td{:style => "text-align: left"} invalid_client
+            %td{:style => "text-align: left"} Client authentication failed
+            %td{:style => "text-align: right"} 401
+          %tr
+            %td{:style => "text-align: left"} invalid_grant
+            %td{:style => "text-align: left"} The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.
+            %td{:style => "text-align: right"} 400
+          %tr
+            %td{:style => "text-align: left"} unsupported_grant_type
+            %td{:style => "text-align: left"} The authorization grant type is not supported by the authorization server.
+            %td{:style => "text-align: right"} 400
+          %tr
+            %td{:style => "text-align: left"} invalid_token
+            %td{:style => "text-align: left"} The access token was revoked, has expired, or is invalid
+            %td{:style => "text-align: right"} 400
 
 
-    .note
-      Still to be published: List of validation errors and possible risk assessment errors
+.row
+  .col-sm-12
+    .step
+      %h3#auth Authorization Errors:
 
+      %p The following list represents the current responses that could be potentially returned when <a href="/sections/integrations/approaches.html">Requesting Access Permission</a>. As these errors are potentially displayed to users, the <code>error_description</code> maybe have a generic replacement.
 
-  .col-sm-4
+      %table.arguments
+        %thead
+          %tr
+            %th Error
+            %th Error Description
+            %th Code
+
+        %tbody
+          %tr
+            %td{:style => "text-align: left"} access_denied
+            %td{:style => "text-align: left"} The user or authorization server denied the request.
+            %td{:style => "text-align: right"} 403
+
+          %tr
+            %td{:style => "text-align: left"} account_not_verified
+            %td{:style => "text-align: left"} Sorry, but you will need to verify your bank account with us before being able to use Sign2Pay again. Keep an eye on your transaction records for a transfer from us. It will have a verification pin in the remarks.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} consumer_flagged_account
+            %td{:style => "text-align: left"} Sorry, but an account of yours is currently being reviewed for fraudulent activity.
+            %td{:style => "text-align: right"} 422
+
+          %tr
+            %td{:style => "text-align: left"} consumer_banned
+            %td{:style => "text-align: left"} We're sorry, but this account cannot be used with Sign2Pay.
+            %td{:style => "text-align: right"} 422
+
+          %tr
+            %td{:style => "text-align: left"} consumer_has_revoked_payment
+            %td{:style => "text-align: left"} We're sorry, but this account cannot be used with Sign2Pay.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} unable_to_create_authorization
+            %td{:style => "text-align: left"} We are currently unable to process this transaction. Please select an alternative payment method.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} amount_above_consumer_transaction_limit
+            %td{:style => "text-align: left"} Sorry, this transaction amount is greater than your current spending limit.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} amount_above_global_daily_limit
+            %td{:style => "text-align: left"} Sorry, but the amount of your purchase is higher than Sign2Pay is processing at the moment.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} amount_above_consumer_daily_limit
+            %td{:style => "text-align: left"} Sorry, but you've reached your daily limit for Sign2Pay transactions.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} consumer_velocity_limit
+            %td{:style => "text-align: left"} Sorry, but computer says too soon! You'll need to wait a while before trying again.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} global_velocity_limit
+            %td{:style => "text-align: left"} Sorry, but computer says too soon! You'll need to wait a while before trying again.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} email_validation_failed
+            %td{:style => "text-align: left"} Sorry, but this email appears to be incorrect.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} unable_to_authorize_transaction
+            %td{:style => "text-align: left"} We are currently unable to process this transaction. Please select an alternative payment method.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} no_global_payments
+            %td{:style => "text-align: left"} We are currently unable to process this transaction. Please select an alternative payment method.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} global_retreat
+            %td{:style => "text-align: left"} We are currently unable to process this transaction. Please select an alternative payment method.
+            %td{:style => "text-align: right"} 406
+
+          %tr
+            %td{:style => "text-align: left"} hancock_offline
+            %td{:style => "text-align: left"} We are currently unable to process this transaction. Please select an alternative payment method.
+            %td{:style => "text-align: right"} 406
+
+      %p
+        .note One of the errors above to note is <code>access_denied</code>. This error represents your user <i>cancelling</i> out of the process.
+
 
 :javascript
   s2p.sectionClass = "integrations";
   s2p.pageClass    = "errors";
-
-//TODO
