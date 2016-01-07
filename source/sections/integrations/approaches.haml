@@ -50,7 +50,7 @@ title: Integrations
               https://app.sign2pay.com/oauth/authorize
 
         %p This is accomplished through a GET request to the authorization URI while including some required parameters.  This is where a user will identify themselves and authorize your request with their signature.
-        %p For on-demand payments, you must include <code>client_id</code>, <code>response_type</code>, <code>redirect_uri</code>, <code>scope</code>, <code>state</code>, <code>device_uid</code>, <code>amount</code>, and <code>ref_id</code> parameters with the GET request.
+        %p For on-demand payments, you must include <code>client_id</code>, <code>response_type</code>, <code>redirect_uri</code>, <code>scope</code>, <code>state</code>, <code>amount</code>, and <code>ref_id</code> parameters with the GET request.
         %p It is important to note that Sign2Pay employs the idea of <i>Progressive Registration</i>. This means that you can provide as much or as little user detail that you have available at the time, and the Identification portion of the process will request the missing detail.
         %p You can provide additonal user detail when building your payment link by passing in the optional user_params object.
 
@@ -82,11 +82,6 @@ title: Integrations
               %td.required.yes yes
               %td.format String
               %td.description A session string that your client uses to maintain state between requests.
-            %tr
-              %td.param device_uid
-              %td.required.yes yes
-              %td.format String
-              %td.description A string that identifies the user's device.
             %tr
               %td.param response_type
               %td.required.yes yes
@@ -164,7 +159,7 @@ title: Integrations
               amount=1995
 
         %p
-          %a.btn.btn-flat.btn-info.btn-lg.text-slim{href: "https://app.sign2pay.com/oauth/authorize?authature_site=app.sign2pay.com&client_id=c509fd593742b6b08adf4f0b41a4801c&response_type=code&redirect_uri=http%3A%2F%2Fauthature.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&state=c3ee82dfdd1ede4f938c95504f8284850bad55c5d1df0392c5cc9427c3d1526e&device_uid=4b808ae03b1ba5ee3512e25e19d9c368b80835654094ea3a7fea27ca398a7279&scope=payment&ux_style=popup&user_params%5Bidentifier%5D=nick%40sign2pay.com&user_params%5Bfirst_name%5D=Nick&user_params%5Blast_name%5D=Lloyd&amount=1995&ref_id=5795c838647f84abea6719cb1e15f2ba7ca581b441d2491b899d9ce71779b9ec", target: "_blank"} Example Popup
+          %a.btn.btn-flat.btn-info.btn-lg.text-slim{href: "https://app.sign2pay.com/oauth/authorize?authature_site=app.sign2pay.com&client_id=c509fd593742b6b08adf4f0b41a4801c&response_type=code&redirect_uri=http%3A%2F%2Fauthature.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&state=c3ee82dfdd1ede4f938c95504f8284850bad55c5d1df0392c5cc9427c3d1526e&scope=payment&ux_style=popup&user_params%5Bidentifier%5D=nick%40sign2pay.com&user_params%5Bfirst_name%5D=Nick&user_params%5Blast_name%5D=Lloyd&amount=1995&ref_id=5795c838647f84abea6719cb1e15f2ba7ca581b441d2491b899d9ce71779b9ec", target: "_blank"} Example Popup
 
         .step
 
