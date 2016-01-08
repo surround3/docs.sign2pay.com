@@ -10,7 +10,7 @@ title: API - Payment - Capture
 
 .row
   .col-sm-12
-    %p This API allows you to authorize an amount against an Access Token <i>before</i> capturing the actual payment.
+    %p This API allows you to capture your authorized payment.
 
     .note.note-danger
       %strong Note:
@@ -44,10 +44,10 @@ title: API - Payment - Capture
           %td.description The amount in cents you would like to authorize.
 
         %tr
-          %td.param authorization_id
+          %td.param ref_id
           %td.required.yes yes
           %td.format String
-          %td.description The authorization_id that was returned from performing payment/authorize.
+          %td.description Your unique id for your purchase.
 
         %tr
           %td.param token
@@ -67,7 +67,6 @@ title: API - Payment - Capture
 
           {
             "amount": 500,
-            "authorization_id": "aacb7ffc8720aa1c09073edfdd40f868",
             "client_id": "c509fd593742b6b08adf4f0b41a4801c",
             "ref_id": "387bd928942e062",
             "token": "d81ff0f3f961e7c387bd928942e062b59cb237c9d595ed9afcd9eca320356199"
