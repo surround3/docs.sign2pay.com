@@ -186,7 +186,7 @@ title: Integrations
           %p Either way, you'll need the access grant code in order to move onto the next step, exchanging it for an Access Token.
 
           .note.note-info
-            The authorization code is short lived - it will expire in 30 seconds from creation.  It must be immediately transferred for an Access Token.
+            The authorization code is short lived - it will expire within 120 seconds from creation.  It must be immediately transferred for an Access Token.
 
           .note.note-danger
             If there was an error in the authentication code request, your redirect_uri will receive a request containing the error and error_description params for you to parse. You can read more about handling errors <a href="/sections/integrations/errors.html">here</a>.
