@@ -55,6 +55,12 @@ title: API - Payment - Capture
           %td.format String
           %td.description The Access Token to attribute this payment to.
 
+        %tr
+          %td.param meta_data
+          %td.required.no no
+          %td.format Hash
+          %td.description Optional data attached to a payment.  This is not shown to a customer.
+
     %h4 Request Headers &amp; Body
     %pre
       %code
@@ -69,7 +75,9 @@ title: API - Payment - Capture
             "amount": 500,
             "client_id": "c509fd593742b6b08adf4f0b41a4801c",
             "ref_id": "387bd928942e062",
-            "token": "d81ff0f3f961e7c387bd928942e062b59cb237c9d595ed9afcd9eca320356199"
+            "token": "d81ff0f3f961e7c387bd928942e062b59cb237c9d595ed9afcd9eca320356199",
+            "meta_data": { "promo": "new_promo", "campaign": "wintersale" }
+
           }
 
     %h4 Response Body

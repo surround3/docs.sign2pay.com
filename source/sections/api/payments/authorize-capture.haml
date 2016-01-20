@@ -52,8 +52,13 @@ title: API - Payment - Authorize &amp; Capture
           %td.param token
           %td.required.no yes
           %td.format String
-          %td.description The Access Token you just received
+          %td.description The Access Token you just received.
 
+        %tr
+          %td.param meta_data
+          %td.required.no no
+          %td.format Hash
+          %td.description Optional data attached to a payment.  This is not shown to a customer.
 
     %h4 Request Headers &amp; Body
     %pre
@@ -69,7 +74,8 @@ title: API - Payment - Authorize &amp; Capture
             "amount": 500,
             "client_id": "c509fd593742b6b08adf4f0b41a4801c",
             "ref_id": "a742e5ba64c887e6314",
-            "token": "bb1cd6ce37d093eb2e8c32e7ec9847b3058112b92d3868371ae5426c463dad0d"
+            "token": "bb1cd6ce37d093eb2e8c32e7ec9847b3058112b92d3868371ae5426c463dad0d",
+            "meta_data": { "promo": "new_promo", "campaign": "wintersale" }
           }
 
     %h4 Response Body
