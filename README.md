@@ -23,6 +23,8 @@ The main branch for docs is ```source```.  We work locally using HAML (layouts a
 bundle exec middleman server
 ```
 
+Done with edits?  Don't forget to update the remote source branch ```git push origin source```.
+
 ## Deployment
 
 To deploy the site:
@@ -31,7 +33,7 @@ To deploy the site:
 bundle exec middleman deploy
 ```
 
-> Make sure you call this from ```source``` and it seems like you need to ensure there is no build dir already in your root.
+> Make sure you call this from ```source``` folder and DELETE your local build directory FIRST!
 
 ###Note:
 
