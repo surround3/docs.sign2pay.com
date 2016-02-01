@@ -96,7 +96,7 @@ title: Integrations
             %tr
               %td.param ref_id
               %td.required.no yes/no
-              %td.format String
+              %td.format String (max 35 chars)
               %td.description When requesting the <strong>payment</strong> scope, your unique id for your purchase <strong>is</strong> required. Otherwise, it is optional.
 
             %tr
@@ -163,6 +163,7 @@ title: Integrations
               user_params%5Bfirst_name%5D=Nick&
               user_params%5Blast_name%5D=Lloyd&
               amount=1995&
+              ref_id=5795c838647f84abea6719cb1e15f2ba7&
               meta_data%5Bpromo%5D=new_promo&meta_data%5Bcampaign%5D=wintersale
 
         %p

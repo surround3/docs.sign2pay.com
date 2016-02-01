@@ -1,0 +1,32 @@
+%h4 Payment Status
+
+%table.arguments
+  %thead
+    %tr
+      %th Status
+      %th Description
+  %tbody
+
+    %tr
+      %td.name PROCESSING
+      %td.description Payment has been authorized and accepted for processing.
+
+    %tr
+      %td.name COMPLETE
+      %td.description Funds have been successfully obtained from the consumers account.
+
+    %tr
+      %td.name FAILED
+      %td.description Sign2Pay was unable to authorize this payment.
+
+    %tr
+      %td.name TIMEOUT
+      %td.description Sign2Pay was unable to authorize this payment within an hour of the beginning of the payment flow.
+
+    %tr
+      %td.name CANCELLED
+      %td.description Sign2Pay or merchant has cancelled this payment before peocessing began.
+
+    %tr
+      %td.name REFUNDED
+      %td.description Sign2Pay or merchant has refunded this payment.

@@ -8,8 +8,9 @@ title: API - Payment - Status
     %h1 Payments - Status
     %hr
 
+
 .row
-  .col-sm-8
+  .col-sm-12
     %p This API allows you to check the current status of a payment request
 
     .note.note-danger
@@ -54,7 +55,59 @@ title: API - Payment - Status
             "status": "PROCESSING"
           }
 
-  .col-sm-4
+
+.row
+  .col-sm-12
+    .step
+      %h4 Check Payment Status via Search
+
+      %p If you do not have the purchase_id associated with your payment, this API allows you to check the current status of a payment request by submitting the ref_id you sent when requesting the original payment.
+
+      %pre
+        %code
+          GET https://app.sign2pay.com/api/v2/payment/search/55fac963e6db9909ba000003
+
+      %table.arguments
+        %thead
+          %tr
+            %th Parameter
+            %th Required
+            %th Type
+            %th Description
+        %tbody
+
+          %tr
+            %td.param ref_id
+            %td.required.yes yes
+            %td.format String
+            %td.description The ref_id sent with your originial Payment Request.
+
+      %h4 Request Headers &amp; Body
+      %pre
+        %code
+          :preserve
+            Accept: */*
+            Accept-Encoding: gzip, deflate
+            Content-Type: application/json
+            Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwMWM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=
+            Accept-Language: en-us
+
+      %h4 Response Body
+      %pre
+        %code
+          :preserve
+            {
+                "status": "PROCESSING",
+                "purchase_id": "56aa84950652684e550001b0"
+            }
+
+
+.row
+  .col-sm-12
+    .step
+      = partial "payment_status"
+
+
 
 :javascript
   s2p.sectionClass = "api";

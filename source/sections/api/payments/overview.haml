@@ -31,12 +31,10 @@ title: API
       %a.list-group-item{href:"/sections/api/payments/status.html"}
         %h4 Get Payment Status
 
-
-  .col-sm-4
+.row
+  .col-sm-12
+    = partial "payment_status"
 
 :javascript
   s2p.sectionClass = "api";
   s2p.pageClass     = "payments";
-
-
-//TODO
