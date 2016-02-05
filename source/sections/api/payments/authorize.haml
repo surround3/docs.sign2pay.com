@@ -10,8 +10,7 @@ title: API - Payment - Authorize
 
 .row
   .col-sm-12
-    %p This API allows you to authorize an amount against an Access Token <i>before</i> capturing the actual payment.
-
+    %p This API allows you to authorize an amount against an Access Token <i>before</i> capturing the actual payment.  This API is valid for an Access Token with the <code>preapproval</code> scope.
     .note.note-danger
       %strong Note:
       This is a <a href="/sections/api/authorization.html">Bearer Authorized</a> call.
@@ -69,6 +68,10 @@ title: API - Payment - Authorize
             "amount_approved": 500,
             "status": "approved"
           }
+
+    .note.note-info
+      This authorization_id will expire in 60 minutes.
+
 
 :javascript
   s2p.sectionClass = "api";
