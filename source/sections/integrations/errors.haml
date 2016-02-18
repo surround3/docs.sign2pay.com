@@ -73,7 +73,6 @@ title: Integrations - Handling Errors
             %td{:style => "text-align: left"} The access token was revoked, has expired, or is invalid
             %td{:style => "text-align: right"} 400
 
-
 .row
   .col-sm-12
     .step
@@ -167,6 +166,14 @@ title: Integrations - Handling Errors
           %tr
             %td{:style => "text-align: left"} hancock_offline
             %td{:style => "text-align: left"} We are currently unable to process this transaction. Please select an alternative payment method.
+            %td{:style => "text-align: right"} 406
+          %tr
+            %td{:style => "text-align: left"} invalid_amount
+            %td{:style => "text-align: left"} The amount cannot be negative.
+            %td{:style => "text-align: right"} 406
+          %tr
+            %td{:style => "text-align: left"} missing_access_token
+            %td{:style => "text-align: left"} The access token is missing.
             %td{:style => "text-align: right"} 406
 
       %p
