@@ -69,10 +69,16 @@ class s2p.Documentation
     $.ajax(options)
       .success (data)=>
         window.sms_id = data.id;
-        @pollForState();
-        $('#submit_sms_button .sk-text').text(data.state);
-        $(".sk-spinner").remove();
-        $('span.sk-text').show();
+        if window.sms_id?
+          @pollForState();
+          $('#submit_sms_button .sk-text').text(data.state);
+          $(".sk-spinner").remove();
+          $('span.sk-text').show();
+        else
+          $('#submit_sms_button .sk-text').text('Sorry - SMS Failed');
+          $(".sk-spinner").remove();
+          $('span.sk-text').show();
+
       .error () =>
         console.log(error);
         $('#submit_sms_button .sk-text').text('SMS Failed');
