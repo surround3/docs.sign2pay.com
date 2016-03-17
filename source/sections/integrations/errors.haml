@@ -175,6 +175,10 @@ title: Integrations - Handling Errors
             %td{:style => "text-align: left"} missing_access_token
             %td{:style => "text-align: left"} The access token is missing.
             %td{:style => "text-align: right"} 406
+          %tr
+            %td{:style => "text-align: left"} duplicate_ref_id
+            %td{:style => "text-align: left"} This ref_id is associated with a purchase that has already been submitted for processing or completed.
+            %td{:style => "text-align: right"} 406
 
       %p
         .note One of the errors above to note is <code>access_denied</code>. This error represents your user <i>cancelling</i> out of the process.
