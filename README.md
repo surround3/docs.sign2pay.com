@@ -35,6 +35,18 @@ bundle exec middleman deploy
 
 > Make sure you call this from ```source``` folder and DELETE your local build directory FIRST!
 
+Middleman deploy will not work if you're signing your commits with GPG since it won't be able to use your key. So disable that first:
+
+```
+git config --global commit.gpgsign false
+```
+
+and reenable after:
+
+```
+git config --global commit.gpgsign true
+```
+
 ###Note:
 
 Using this workflow, you will work only in the source branch and *not touch* the gh-pages branch. Life is good.
