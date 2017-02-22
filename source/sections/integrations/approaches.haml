@@ -112,10 +112,10 @@ title: Integrations
               %td.description Extra optional data attached to a payment.  This is not shown to a customer.  Format must follow meta_data[KEY]=VALUE in the request.
 
             %tr
-              %td.param user_params[identifier]
+              %td.param user_params[email]<strong>*</strong>
               %td.required.no no
               %td.format String
-              %td.description The <strong>email</strong> address used to identify the user
+              %td.description The email address used to identify the user
             %tr
               %td.param user_params[first_name]
               %td.required.no no
@@ -127,15 +127,15 @@ title: Integrations
               %td.format String
               %td.description The user's last name
             %tr
-              %td.param user_params[mobile]
+              %td.param user_params[mobile]<strong>*</strong>
               %td.required.no no
               %td.format String
-              %td.description Mobile number for this user including country code (ie: <i>+32484831234</i>)
+              %td.description Mobile number for this user including country code (ie: +32484831234)
             %tr
               %td.param user_params[address]
               %td.required.no no
               %td.format String
-              %td.description Street address for this user including house/apt number.
+              %td.description Street address for this user including house/apt number
             %tr
               %td.param user_params[city]
               %td.required.no no
@@ -146,6 +146,18 @@ title: Integrations
               %td.required.no no
               %td.format String
               %td.description User's postal code
+            %tr
+              %td.param user_params[national_registry_number]<strong>*</strong>
+              %td.required.no no
+              %td.format String
+              %td.description User's national registry number
+            %tr
+              %td.param user_params[iban]<strong>*</strong>
+              %td.required.no no
+              %td.format String
+              %td.description User's International Bank Account Number (IBAN)
+
+        <strong>* Can be used as an identifier</strong>.
 
         %h4 Example Request URL:
 
