@@ -1,0 +1,128 @@
+%h3 Obtaining an Authorization Code with your users' signature
+%p
+  %strong
+    Method:
+  %code
+    GET
+%p
+  %strong
+    Authorization URI:
+  %code
+    :preserve
+            https://app.sign2pay.com/oauth/authorize
+
+%table.arguments
+  %thead
+    %tr
+      %th Parameter
+      %th Required
+      %th Type
+      %th Description
+  %tbody
+    %tr
+      %td.param client_id
+      %td.required.yes yes
+      %td.format Number
+      %td.description The client id issued to your Sign2Pay Client Application.
+    %tr
+      %td.param redirect_uri
+      %td.required.yes yes
+      %td.format String
+      %td.description The uri the user will be redirected to after authorization. Must have the same domain as the application. Must match the redirect_uri specified in the Sign2Pay Merchant Admin application settings.
+    %tr
+      %td.param scope
+      %td.required.yes yes
+      %td.format String
+      %td.description A space separated string list of permission scopes.  They include: payment, preapproval, authenticate, capture.  For on-demand payments, the scope <strong>must</strong> be specified as <strong>payment</strong>.
+    %tr
+      %td.param state
+      %td.required.yes yes
+      %td.format String
+      %td.description A session string that your client uses to maintain state between requests.
+    %tr
+      %td.param response_type
+      %td.required.yes yes
+      %td.format String
+      %td.description Must be specified as <strong>code</strong>.
+    %tr
+      %td.param amount
+      %td.required.no yes/no
+      %td.format Integer
+      %td.description When requesting the <strong>payment</strong> scope, the amount of payment in cents <strong>is</strong> required. Otherwise, it is optional.
+
+    %tr
+      %td.param ref_id
+      %td.required.no yes/no
+      %td.format String (max 35 chars)
+      %td.description When requesting the <strong>payment</strong> scope, your unique id for your purchase <strong>is</strong> required. Otherwise, it is optional.
+
+    %tr
+      %td.param locale
+      %td.required.no no
+      %td.format String
+      %td.description The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2 code</a> reflecting the language to render the Sign2Pay UI in.
+
+    %tr
+      %td.param meta_data
+      %td.required.no no
+      %td.format Hash
+      %td.description Extra optional data attached to a payment.  This is not shown to a customer.  Format must follow meta_data[KEY]=VALUE in the request.
+
+    %tr
+      %td.param user_params[identifier]<strong>*</strong>
+      %td.required.no no
+      %td.format String
+      %td.description The identifier address used to identify the user
+    %tr
+      %td.param user_params[first_name]
+      %td.required.no no
+      %td.format String
+      %td.description The user's first name
+    %tr
+      %td.param user_params[last_name]
+      %td.required.no no
+      %td.format String
+      %td.description The user's last name
+    %tr
+      %td.param user_params[mobile]<strong>*</strong>
+      %td.required.no no
+      %td.format String
+      %td.description Mobile number for this user including country code (ie: +32484831234)
+    %tr
+      %td.param user_params[address]
+      %td.required.no no
+      %td.format String
+      %td.description Street address for this user including house/apt number
+    %tr
+      %td.param user_params[city]
+      %td.required.no no
+      %td.format String
+      %td.description City of the user's address
+    %tr
+      %td.param user_params[postal_code]
+      %td.required.no no
+      %td.format String
+      %td.description User's postal code
+<strong>* Can be used as an identifier</strong>.
+
+%h4 Example Request URL:
+
+%pre
+  %code
+    :preserve
+            https://app.sign2pay.com/oauth/authorize?
+            client_id=c509fd593742b6b08adf4f0b41a4801c&
+            response_type=code&
+            redirect_uri=http%3A%2F%2Fexample.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&
+            state=8e108029ade0d75a1e134d1404f44325eec53356ae665ba21cba1bf8559f5e8d&
+            scope=payment&
+            ux_style=popup&
+            user_params%5Bidentifier%5D=nick%40sign2pay.com&
+            user_params%5Bfirst_name%5D=Nick&
+            user_params%5Blast_name%5D=Lloyd&
+            amount=1995&
+            ref_id=5795c838647f84abea6719cb1e15f2ba7&
+            meta_data%5Bpromo%5D=new_promo&meta_data%5Bcampaign%5D=wintersale
+
+%p
+  %a.btn.btn-flat.btn-info.btn-lg.text-slim{href: "https://app.sign2pay.com/oauth/authorize?authature_site=app.sign2pay.com&client_id=c509fd593742b6b08adf4f0b41a4801c&response_type=code&redirect_uri=http%3A%2F%2Fauthature.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&state=c3ee82dfdd1ede4f938c95504f8284850bad55c5d1df0392c5cc9427c3d1526e&scope=payment&ux_style=popup&user_params%5Bidentifier%5D=nick%40sign2pay.com&user_params%5Bfirst_name%5D=Nick&user_params%5Blast_name%5D=Lloyd&amount=1995&ref_id=5795c838647f84abea6719cb1e15f2ba7ca581b441d2491b899d9ce71779b9ec", target: "_blank"} Example Popup
