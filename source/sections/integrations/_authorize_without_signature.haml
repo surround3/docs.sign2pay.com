@@ -116,22 +116,44 @@
       %td.format String
       %td.description User's International Bank Account Number (IBAN)
 
-<strong>* Can be used as an identifier</strong>.
+<strong>* E-mail, Mobile Phone number or National Registry Number can be used as an identifier</strong>.
 
-%h4 Example Request URL:
+%br
+%br
 
-%pre
-  %code
-    :preserve
-              https://app.sign2pay.com/oauth/no-authorize?
-              client_id=c509fd593742b6b08adf4f0b41a4801c&
-              response_type=code&
-              redirect_uri=http%3A%2F%2Fexample.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&
-              state=8e108029ade0d75a1e134d1404f44325eec53356ae665ba21cba1bf8559f5e8d&
-              scope=payment&
-              user_params%5Bidentifier%5D=nick%40sign2pay.com&
-              user_params%5Bfirst_name%5D=Nick&
-              user_params%5Blast_name%5D=Lloyd&
-              amount=1995&
-              ref_id=5795c838647f84abea6719cb1e15f2ba7&
-              meta_data%5Bpromo%5D=new_promo&meta_data%5Bcampaign%5D=wintersale
+%p
+
+  %button.btn.btn-flat.btn-info.btn-lg.text-slim{ type: 'button', data: { toggle: 'modal', target: '#authroization_code_modal' } }
+    Generate Authorization Code now!
+
+  - content_for :modals do
+    #authroization_code_modal.modal.fade{ role: 'dialog', tabindex: -1, aria: { labelledby: 'authroization_code_modal_title', hidden: 'true' } }
+      .modal-dialog{ role: 'document'}
+        .modal-content
+          .modal-header
+            %button.close{ data: { dismiss: 'modal' }, aria: { label: 'Close' } }
+              %span{ aria: { hidden: 'true' } }
+                &times;
+            %h4.modal-title{ id: 'authroization_code_modal_title' }
+              Generate
+              %strong Authorization code
+              without Signature
+          .modal-body
+            %ul.nav.nav-tabs
+              %li.active
+                %a{"data-toggle" => "tab", :href => "#authorization_code_request"}
+                  Request
+              %li
+                %a{"data-toggle" => "tab", :href => "#authorization_code_output"}
+                  Response
+            .tab-content.tab-content-bordered
+              #authorization_code_request.tab-pane.panel-padding.fade.active.in
+                = partial 'modal_form'
+              #authorization_code_output.tab-pane.panel-padding.fade
+
+
+          .modal-footer
+            %button.btn.btn-default{ data: { dismiss: 'modal' } }
+              Close
+            #send_request_button.button.btn.btn-info
+              Send Request

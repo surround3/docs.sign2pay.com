@@ -1,9 +1,13 @@
 class s2p.Documentation
   constructor: (options) ->
+    @api_endpoint = 'http://app.sign2pay.com/'
     @sectionClass = options.sectionClass
     @pageClass    = options.pageClass
     if @sectionClass
       @setNavigationSection()
+
+    if @sectionClass == 'integrations' && @pageClass == 'approaches'
+      @bindAuthorizationCodeModal()
 
     @bindSMSDemos()
     @hideToDos()
@@ -98,6 +102,45 @@ class s2p.Documentation
         $('#submit_sms_button .sk-text').text data.state
         if data.state != "paid"
           window.setTimeout @pollForState, 5000
+
+  bindAuthorizationCodeModal: =>
+
+    renderPanel = (type, head, body) ->
+      "<div class=\"panel panel-#{type}\">" +
+      "<div class=\"panel-heading\"><h3 class=\"panel-title\">#{head}</h3></div>" +
+      "<div class=\"panel-body\">#{body}</div>" +
+      "</div>"
+
+    renderStatus = (json, error) ->
+      if error
+        renderPanel('danger', json.error, json.error_description)
+      else
+        renderPanel('success', 'Authroization Code', "Your authorization code is <strong>#{json.code}")
+
+    renderResponseTab = (url, json, error) ->
+      html = renderStatus(json, error) +
+        "<h4>Request URL:</h4>" +
+        "<pre><code>#{url}</code></pre>" +
+        "<h4>Response JSON:</h4>" +
+        "<pre><code>#{JSON.stringify(json, undefined, 2)}</code></pre>"
+      $('#authorization_code_output').html(html);
+      $('#authroization_code_modal .nav-tabs a[href=#authorization_code_output]').tab('show');
+
+    $("#authroization_code_modal #send_request_button").on "click", (e) =>
+
+      options =
+        url      : @api_endpoint + 'oauth/no-authorize' + '?' + $('#authroization_code_modal form').serialize()
+        dataType : 'json'
+        type     : "POST"
+
+      $.ajax(options)
+        .success (data) ->
+          renderResponseTab(@url, data, false);
+
+        .error (xhr) ->
+          renderResponseTab(@url, xhr.responseJSON, true)
+
+      return true;
 
 $ ->
   s2p.docs = new s2p.Documentation(s2p)

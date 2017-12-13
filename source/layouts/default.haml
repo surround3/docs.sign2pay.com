@@ -8,6 +8,8 @@
       s2p = {};
 
   %body{:class => page_classes}
+    .modals
+      = yield_content :modals
     #docs_background
     .page-container
       %section.fixed-header.clearfix
