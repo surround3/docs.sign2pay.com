@@ -148,12 +148,75 @@
                   Response
             .tab-content.tab-content-bordered
               #authorization_code_request.tab-pane.panel-padding.fade.active.in
-                = partial 'modal_form'
+                %form.form
+                  / Scope
+                  .form-group
+                    %label.control-label{for: 'scope'} Scope
+                    %select#scope.form-control{name: 'scope'}
+                      %option{value: 'preapproval'} preapproval
+                      %option{value: 'payment'} payment
+                  / Response Code
+                  .form-group
+                    %label.control-label{for: 'response_type'} Response Type
+                    %input#response_type.form-control.input-md{name: 'response_type', value: 'code', required: '', type: 'text'}/
+                  / Client ID
+                  .form-group
+                    %label.control-label{for: 'client_id'} Client ID
+                    %input#client_id.form-control.input-md{name: 'client_id', required: '', type: 'text'}/
+                    %span.help-block
+                      Your
+                      %strong client_id
+                      is available from
+                      %a{href: 'https://merchant.sign2pay.com/merchant_applications', target: '_new'}
+                        %strong Sign2Pay Merchant Application
+                  / Redirect URI
+                  .form-group
+                    %label.control-label{for: 'redirect_uri'} Redirect URI
+                    %input#redirect_uri.form-control.input-md{name: 'redirect_uri', required: '', type: 'text'}/
+                    %span.help-block
+                      Must match redirect_uri defined in your
+                      %strong Sign2Pay Merchant Application
+                  / Ref ID
+                  .form-group
+                    %label.control-label{for: 'ref_id'} Ref ID
+                    %input#state.form-control.input-md{name: 'ref_id', placeholder: '', required: '', type: 'text'}/
+                    %span.help-block
+                      Your unique id for your purchase.
+                  / State
+                  .form-group
+                    %label.control-label{for: 'state'} State
+                    %input#state.form-control.input-md{name: 'state', placeholder: '', required: '', type: 'text'}/
+                  / Amount
+                  .form-group
+                    %label.control-label{for: 'amount'} Amount
+                    %input#amount.form-control.input-md{name: 'amount', placeholder: '', type: 'number'}/
+                    %span.help-block
+                      Amount of payment being requested in cents.
+                  / E-mail
+                  .form-group
+                    %label.control-label{for: 'user_params_email'} E-mail
+                    %input.form-control.input-md{id: 'user_params_email', name: 'user_params[email]', placeholder: '', required: '', type: 'email'}/
+                  / Mobile
+                  .form-group
+                    %label.control-label{for: 'user_params_mobile'} Mobile Phone
+                    %input.form-control.input-md{id: 'user_params_mobile', name: 'user_params[mobile]', placeholder: '', required: '', type: 'text'}/
+                  / IBAN
+                  .form-group
+                    %label.control-label{for: 'user_params_iban'} IBAN
+                    %input.form-control.input-md{id: 'user_params_iban', name: 'user_params[iban]', placeholder: '', required: '', type: 'text'}/
+                  / First name
+                  .form-group
+                    %label.control-label{for: 'user_params_first_name'} First name
+                    %input.form-control.input-md{id: 'user_params_first_name', name: 'user_params[first_name]', placeholder: '', required: '', type: 'text'}/
+                  / Last name
+                  .form-group
+                    %label.control-label{for: 'user_params_last_name'} Last name
+                    %input.form-control.input-md{id: 'user_params_last_name', name: 'user_params[last_name]', placeholder: '', required: '', type: 'text'}/
+
+                  / Control Buttons
+                  .form-group
+                    #send_request_button.button.btn.btn-info
+                      Send Request
+                    %button.btn.btn-default{ data: { dismiss: 'modal' } }
+                      Close
               #authorization_code_output.tab-pane.panel-padding.fade
-
-
-          .modal-footer
-            %button.btn.btn-default{ data: { dismiss: 'modal' } }
-              Close
-            #send_request_button.button.btn.btn-info
-              Send Request
