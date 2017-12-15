@@ -1,0 +1,195 @@
+%h3 Exchanging Authentication Code for an Access Token
+
+%p Now that you have the Authorization Code, you'll exchange it for an Access Token. This is done by sending an authenticated POST request to the exchange endpoint.
+
+%p
+  %strong
+    Method:
+  %code
+    POST
+%p
+  %strong
+    URI:
+  %code
+    :preserve
+            https://app.sign2pay.com/oauth/token
+
+%p
+  %strong
+    Authentication:
+  %code
+    :preserve
+            Authorization: Basic [Base64.encoded CLIENT_ID:CLIENT_SECRET]
+
+%p The requirements for exchanging your Authentication Code for an Access Token are listed below.
+
+%table.arguments
+  %thead
+    %tr
+      %th Parameter
+      %th Required
+      %th Type
+      %th Description
+  %tbody
+    %tr
+      %td.param client_id
+      %td.required.yes yes
+      %td.format Number
+      %td.description The client id issued to your Sign2Pay Client Application.
+    %tr
+      %td.param code
+      %td.required.yes yes
+      %td.format String
+      %td.description The Authentication Code returned in the previous step when requesting user's permission.
+    %tr
+      %td.param state
+      %td.required.yes yes
+      %td.format String
+      %td.description The session string that your client sent with the original Authorization Request.
+
+    %tr
+      %td.param redirect_uri
+      %td.required.yes yes
+      %td.format String
+      %td.description The uri the user will be redirected to after payment.  Must have the same domain as the application. Must match the redirect_uri specified in the Sign2Pay Merchant Admin application settings.
+
+%h4 Example Request Header:
+
+%pre
+  %code
+    :preserve
+            Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwNOM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=
+            Content-Type: application/x-www-form-urlencoded
+
+.note.note-info The <a href='/sections/api/authorization.html'>Authorization: Basic authorization header</a> is generated through a Base64 encoding of <code>CLIENT_ID, CLIENT_SECRET</code> per RFC 2617. You can use <a href="https://www.base64encode.org/">https://www.base64encode.org/</a> to see how it should be encoded.
+
+%h4 Example Request Body:
+
+%pre
+  %code
+    :preserve
+            client_id=c509fd593742b6b08adf4f0b41a4801c&
+            redirect_uri=http%3A%2F%2Fexample.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&
+            code=829de1eb40385ebdfcc854e2ba94fb96&
+            state=x3buLJqq3iAx3buLJqq3iA
+
+.step
+  %h3 Response
+
+  %p As this request is server side only, the Access Token is returned as a JSON object.
+
+  %p Included within the Access Token object are some additonal user and account details that you may find useful for display within your own application.
+  %p It is important to note that the token attribute is directly related to the account object as this is the account the user has granted you permission to use.
+
+  %h4 Example Response:
+  %pre
+    %code
+      :preserve
+              {
+                "access_token":
+                  {
+                    "token": "70ae0833466bacd744e68e38ae4ace70a7a5ad1ef302c406a35bec227abf96f6",
+                    "type": "bearer",
+                    "scopes": "payment",
+                    "user": {
+                      "first_name": "nick",
+                      "last_name": "lloyd",
+                      "identifier": "nick@sign2pay.com"
+                    },
+                    "account": {
+                      "masked_iban": "************1437",
+                      "primary": true,
+                      "uid": "3150d493acabcb319d395037de2f03f9",
+                      "bank": {
+                        "swift": "KREDBEBB",
+                        "country_code": "BE",
+                        "logo": "https://s2p.s3-eu-west-1.amazonaws.com/banks/BE/KREDBEBB.png?1429107098",
+                        "has_logo": true,
+                        "bank_name": "KBC BANK"
+                      }
+                    },
+                    "expires": "2015-09-16T11:33:06.883+02:00"
+                  }
+                }
+
+  .note.note-info
+    When the scope is for "payment", and not "preapproval", the access token is short lived - it will expire in 2 minutes from creation, and can only be used for a single payment.
+
+  .note.note-danger
+    If there was an error in the Access Token request, your redirect_uri will receive a request containing the error and error_description params for you to parse. You can read more about handling errors <a href="/sections/integrations/errors.html">here</a>.
+
+  %button.btn.btn-flat.btn-info.btn-lg.text-slim{ type: 'button', data: { toggle: 'modal', target: '#access_grant_modal' } }
+    Generate Access Grant now!
+
+  - content_for :modals do
+    #access_grant_modal.modal.fade{ role: 'dialog', tabindex: -1, aria: { labelledby: 'access_grant_modal_title', hidden: 'true' } }
+      .modal-dialog{ role: 'document'}
+        .modal-content
+          .modal-header
+            %button.close{ data: { dismiss: 'modal' }, aria: { label: 'Close' } }
+              %span{ aria: { hidden: 'true' } }
+                &times;
+            %h4.modal-title{ id: 'access_grant_modal_title' }
+              Generate
+              %strong Access Grant
+          .modal-body
+            %ul.nav.nav-tabs
+              %li.active
+                %a{"data-toggle" => "tab", :href => "#access_grant_request"}
+                  Request
+              %li
+                %a{"data-toggle" => "tab", :href => "#access_grant_output"}
+                  Response
+            .tab-content.tab-content-bordered
+              #access_grant_request.tab-pane.panel-padding.fade.active.in
+                %form.form
+                  / Client ID
+                  .form-group
+                    %label.control-label{for: 'client_id'} Client ID
+                    %input#client_id.form-control.input-md{name: 'client_id', required: '', type: 'text'}/
+                  / Client ID
+                  .form-group
+                    %label.control-label{for: 'client_secret'} Client Secret
+                    %input#client_secret.form-control.input-md{name: 'client_secret', required: '', type: 'text'}/
+                    %span.help-block
+                      Your
+                      %strong client_id
+                      and
+                      %strong client_secret
+                      are available in
+                      %a{href: 'https://merchant.sign2pay.com/merchant_applications', target: '_new'}
+                        %strong Sign2Pay Merchant Application
+                      access credentials section.
+                  / Redirect URI
+                  .form-group
+                    %label.control-label{for: 'redirect_uri'} Redirect URI
+                    %input#redirect_uri.form-control.input-md{name: 'redirect_uri', required: '', type: 'text'}/
+                    %span.help-block
+                      Must match redirect_uri defined in your
+                      %strong Sign2Pay Merchant Application
+                  / Code
+                  .form-group
+                    %label.control-label{for: 'code'} Code
+                    %input#code.form-control.input-md{name: 'code', required: '', type: 'text'}/
+                    %span.help-block
+                      The Authentication Code returned in the previous step when requesting user's permission.
+                  / State
+                  .form-group
+                    %label.control-label{for: 'state'} State
+                    %input#state.form-control.input-md{name: 'state', required: '', type: 'text'}/
+
+                  / Control Buttons
+                  .form-group
+                    #send_request_button.button.btn.btn-info
+                      Send Request
+                    %button.btn.btn-default{ data: { dismiss: 'modal' } }
+                      Close
+              #access_grant_output.tab-pane.panel-padding.fade
+
+.row
+  .col-sm-12
+    .step
+      %h3 Next Step
+      %a{:href => "#payment_request", :data => {:toggle => "tab" }}
+        Requesting Payment
+        %span.fa.fa-chevron-right

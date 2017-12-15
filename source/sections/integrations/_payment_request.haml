@@ -1,0 +1,175 @@
+%h3 Making a Payment Request
+
+%p For On-Demand Payments, you'll make the payment request immediately after you receive the Access Token.  This is done by sending an authenticated POST request to the payment capture endpoint.
+
+%p
+  %strong
+    Method:
+  %code
+    POST
+%p
+  %strong
+    URI:
+  %code
+    :preserve
+            https://app.sign2pay.com/api/v2/payment/authorize/capture
+
+%p
+  %strong
+    Authentication:
+  %code
+    :preserve
+            Authorization: Basic [encoded credentials CLIENT_ID, CLIENT_SECRET]
+
+%p The requirements for making a payment request are listed below.
+
+%table.arguments
+  %thead
+    %tr
+      %th Parameter
+      %th Required
+      %th Type
+      %th Description
+  %tbody
+    %tr
+      %td.param client_id
+      %td.required.yes yes
+      %td.format Number
+      %td.description The client ID issued to your Sign2Pay Client Application.
+    %tr
+      %td.param amount
+      %td.required.no yes
+      %td.format Integer
+      %td.description Amount of payment being requested <strong>in cents</strong>.
+
+    %tr
+      %td.param ref_id
+      %td.required.no yes
+      %td.format String
+      %td.description Your unique id for your purchase.
+
+    %tr
+      %td.param token
+      %td.required.no yes
+      %td.format String
+      %td.description The Access Token you just received
+
+    %tr
+      %td.param meta_data
+      %td.required.no no
+      %td.format Hash
+      %td.description Extra optional data attached to a payment.  This is not shown to a customer.  Format must follow meta_data[KEY]=VALUE in the request.
+
+%h4 Example Request Header:
+
+%pre
+  %code
+    :preserve
+            Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwNOM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=
+            Content-Type: application/x-www-form-urlencoded
+
+.note.note-info The <a href='/sections/api/authorization.html'>Authorization: Basic authorization header</a> is generated through a Base64 encoding of <code>CLIENT_ID, CLIENT_SECRET</code> per RFC 2617. You can use <a href="https://www.base64encode.org/">https://www.base64encode.org/</a> to see how it should be encoded.
+
+%h4 Example Request Body:
+
+%pre
+  %code
+    :preserve
+            client_id=c509fd593742b6b08adf4f0b41a4801c&
+            token=bb1cd6ce37d093eb2e8c32e7ec9847b3058112b92d3868371ae5426c463dad0d&
+            ref_id=123654123&
+            amount=1692&
+            meta_data%5Bpromo%5D=new_promo&meta_data%5Bcampaign%5D=wintersale
+
+.step
+
+  %h3 Response
+
+  %p A successful Payment request returns a JSON object containing the "purchase_id".
+
+  %h5 Example Response:
+  %pre
+    %code
+      :preserve
+              {
+                "purchase_id": "55f980b6e6db99dba9000001"
+              }
+
+  %p Since the payment process is now complete, the user will be redirected back to your application through the URL specified as your application's redirect_uri.
+
+  %p This is your opportunity to update your local object (purchase, order, payment or whatever your model is named) as "paid", and redirect your user to your next step such as a "Thanks for your purchase" page.
+
+  .note.note-info
+    Don't forget this is happening server side, so you'll want to pass along the message if need be to your iOS client, or simply redirect your user in your web application.
+
+  .note.note-danger
+    If there was an error in the payment request, your redirect_uri will receive a request containing the error and error_description params for you to parse. You can read more about handling errors <a href="/sections/integrations/errors.html">here</a>.
+
+  %button.btn.btn-flat.btn-info.btn-lg.text-slim{ type: 'button', data: { toggle: 'modal', target: '#payment_request_modal' } }
+    Try Payment Request now!
+
+  - content_for :modals do
+    #payment_request_modal.modal.fade{ role: 'dialog', tabindex: -1, aria: { labelledby: 'payment_request_modal_title', hidden: 'true' } }
+      .modal-dialog{ role: 'document'}
+        .modal-content
+          .modal-header
+            %button.close{ data: { dismiss: 'modal' }, aria: { label: 'Close' } }
+              %span{ aria: { hidden: 'true' } }
+                &times;
+            %h4.modal-title{ id: 'payment_request_modal_title' }
+              Make a
+              %strong Payment Request
+          .modal-body
+            %ul.nav.nav-tabs
+              %li.active
+                %a{"data-toggle" => "tab", :href => "#payment_request_request"}
+                  Request
+              %li
+                %a{"data-toggle" => "tab", :href => "#payment_request_output"}
+                  Response
+            .tab-content.tab-content-bordered
+              #payment_request_request.tab-pane.panel-padding.fade.active.in
+                %form.form
+                  / Client ID
+                  .form-group
+                    %label.control-label{for: 'client_id'} Client ID
+                    %input#client_id.form-control.input-md{name: 'client_id', required: '', type: 'text'}/
+                  / Client ID
+                  .form-group
+                    %label.control-label{for: 'client_secret'} Client Secret
+                    %input#client_secret.form-control.input-md{name: 'client_secret', required: '', type: 'text'}/
+                    %span.help-block
+                      Your
+                      %strong client_id
+                      and
+                      %strong client_secret
+                      are available in
+                      %a{href: 'https://merchant.sign2pay.com/merchant_applications', target: '_new'}
+                        %strong Sign2Pay Merchant Application
+                      access credentials section.
+                  / Token
+                  .form-group
+                    %label.control-label{for: 'token'} Token
+                    %input#code.form-control.input-md{name: 'token', required: '', type: 'text'}/
+                    %span.help-block
+                      The Access Token you just received
+                  / Ref ID
+                  .form-group
+                    %label.control-label{for: 'ref_id'} Ref ID
+                    %input#state.form-control.input-md{name: 'ref_id', placeholder: '', required: '', type: 'text'}/
+                    %span.help-block
+                      Your unique id for your purchase.
+                  / Amount
+                  .form-group
+                    %label.control-label{for: 'amount'} Amount
+                    %input#amount.form-control.input-md{name: 'amount', placeholder: '', type: 'number'}/
+                    %span.help-block
+                      Amount of payment being requested in cents.
+
+                  / Control Buttons
+                  .form-group
+                    #send_request_button.button.btn.btn-info
+                      Send Request
+                    %button.btn.btn-default{ data: { dismiss: 'modal' } }
+                      Close
+              #payment_request_output.tab-pane.panel-padding.fade
