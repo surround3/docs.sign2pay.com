@@ -1,6 +1,6 @@
 class s2p.Documentation
   constructor: (options) ->
-    @api_endpoint = 'http://app.sign2pay.com/'
+    @api_endpoint = 'https://app.sign2pay.com/'
     @sectionClass = options.sectionClass
     @pageClass    = options.pageClass
     if @sectionClass
