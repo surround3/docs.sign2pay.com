@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang='en-us'>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Integrations</title>
+    <link href="/stylesheets/main-901ba704.css" rel="stylesheet" />
+    <script>
+      s2p = {};
+    </script>
+  </head>
+  <body class='sections sections_integrations sections_integrations_approaches'>
+    <div class='modals'>
+      <div aria-hidden='true' aria-labelledby='authroization_code_modal_title' class='modal fade' id='authroization_code_modal' role='dialog' tabindex='-1'>
+        <div class='modal-dialog' role='document'>
+          <div class='modal-content'>
+            <div class='modal-header'>
+              <button aria-label='Close' class='close' data-dismiss='modal'>
+                <span aria-hidden='true'>
+                  &times;
+                </span>
+              </button>
+              <h4 class='modal-title' id='authroization_code_modal_title'>
+                Generate
+                <strong>Authorization code</strong>
+                without Signature
+              </h4>
+            </div>
+            <div class='modal-body'>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a data-toggle='tab' href='#authorization_code_request'>
+                    Request
+                  </a>
+                </li>
+                <li>
+                  <a data-toggle='tab' href='#authorization_code_output'>
+                    Response
+                  </a>
+                </li>
+              </ul>
+              <div class='tab-content tab-content-bordered'>
+                <div class='tab-pane panel-padding fade active in' id='authorization_code_request'>
+                  <form class='form'>
+                    <!-- Scope -->
+                    <div class='form-group'>
+                      <label class='control-label' for='scope'>Scope</label>
+                      <select class='form-control' id='scope' name='scope'>
+                        <option value='preapproval'>preapproval</option>
+                        <option value='payment'>payment</option>
+                      </select>
+                    </div>
+                    <!-- Response Code -->
+                    <div class='form-group'>
+                      <label class='control-label' for='response_type'>Response Type</label>
+                      <input class='form-control input-md' id='response_type' name='response_type' required='' type='text' value='code'>
+                    </div>
+                    <!-- Client ID -->
+                    <div class='form-group'>
+                      <label class='control-label' for='client_id'>Client ID</label>
+                      <input class='form-control input-md' id='client_id' name='client_id' required='' type='text'>
+                      <span class='help-block'>
+                        Your
+                        <strong>client_id</strong>
+                        is available from
+                        <a href='https://merchant.sign2pay.com/merchant_applications' target='_new'>
+                          <strong>Sign2Pay Merchant Application</strong>
+                        </a>
+                      </span>
+                    </div>
+                    <!-- Redirect URI -->
+                    <div class='form-group'>
+                      <label class='control-label' for='redirect_uri'>Redirect URI</label>
+                      <input class='form-control input-md' id='redirect_uri' name='redirect_uri' required='' type='text'>
+                      <span class='help-block'>
+                        Must match redirect_uri defined in your
+                        <strong>Sign2Pay Merchant Application</strong>
+                      </span>
+                    </div>
+                    <!-- Ref ID -->
+                    <div class='form-group'>
+                      <label class='control-label' for='ref_id'>Ref ID</label>
+                      <input class='form-control input-md' id='state' name='ref_id' placeholder='' required='' type='text'>
+                      <span class='help-block'>
+                        Your unique id for your purchase.
+                      </span>
+                    </div>
+                    <!-- State -->
+                    <div class='form-group'>
+                      <label class='control-label' for='state'>State</label>
+                      <input class='form-control input-md' id='state' name='state' placeholder='' required='' type='text'>
+                    </div>
+                    <!-- Amount -->
+                    <div class='form-group'>
+                      <label class='control-label' for='amount'>Amount</label>
+                      <input class='form-control input-md' id='amount' name='amount' placeholder='' type='number'>
+                      <span class='help-block'>
+                        Amount of payment being requested in cents.
+                      </span>
+                    </div>
+                    <!-- E-mail -->
+                    <div class='form-group'>
+                      <label class='control-label' for='user_params_email'>E-mail</label>
+                      <input class='form-control input-md' id='user_params_email' name='user_params[email]' placeholder='' required='' type='email'>
+                    </div>
+                    <!-- Mobile -->
+                    <div class='form-group'>
+                      <label class='control-label' for='user_params_mobile'>Mobile Phone</label>
+                      <input class='form-control input-md' id='user_params_mobile' name='user_params[mobile]' placeholder='' required='' type='text'>
+                    </div>
+                    <!-- IBAN -->
+                    <div class='form-group'>
+                      <label class='control-label' for='user_params_iban'>IBAN</label>
+                      <input class='form-control input-md' id='user_params_iban' name='user_params[iban]' placeholder='' required='' type='text'>
+                    </div>
+                    <!-- First name -->
+                    <div class='form-group'>
+                      <label class='control-label' for='user_params_first_name'>First name</label>
+                      <input class='form-control input-md' id='user_params_first_name' name='user_params[first_name]' placeholder='' required='' type='text'>
+                    </div>
+                    <!-- Last name -->
+                    <div class='form-group'>
+                      <label class='control-label' for='user_params_last_name'>Last name</label>
+                      <input class='form-control input-md' id='user_params_last_name' name='user_params[last_name]' placeholder='' required='' type='text'>
+                    </div>
+                    <!-- Control Buttons -->
+                    <div class='form-group'>
+                      <div class='button btn btn-info' id='send_request_button'>
+                        Send Request
+                      </div>
+                      <button class='btn btn-default' data-dismiss='modal'>
+                        Close
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div class='tab-pane panel-padding fade' id='authorization_code_output'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div aria-hidden='true' aria-labelledby='access_grant_modal_title' class='modal fade' id='access_grant_modal' role='dialog' tabindex='-1'>
+        <div class='modal-dialog' role='document'>
+          <div class='modal-content'>
+            <div class='modal-header'>
+              <button aria-label='Close' class='close' data-dismiss='modal'>
+                <span aria-hidden='true'>
+                  &times;
+                </span>
+              </button>
+              <h4 class='modal-title' id='access_grant_modal_title'>
+                Generate
+                <strong>Access Grant</strong>
+              </h4>
+            </div>
+            <div class='modal-body'>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a data-toggle='tab' href='#access_grant_request'>
+                    Request
+                  </a>
+                </li>
+                <li>
+                  <a data-toggle='tab' href='#access_grant_output'>
+                    Response
+                  </a>
+                </li>
+              </ul>
+              <div class='tab-content tab-content-bordered'>
+                <div class='tab-pane panel-padding fade active in' id='access_grant_request'>
+                  <form class='form'>
+                    <!-- Client ID -->
+                    <div class='form-group'>
+                      <label class='control-label' for='client_id'>Client ID</label>
+                      <input class='form-control input-md' id='client_id' name='client_id' required='' type='text'>
+                    </div>
+                    <!-- Client ID -->
+                    <div class='form-group'>
+                      <label class='control-label' for='client_secret'>Client Secret</label>
+                      <input class='form-control input-md' id='client_secret' name='client_secret' required='' type='text'>
+                      <span class='help-block'>
+                        Your
+                        <strong>client_id</strong>
+                        and
+                        <strong>client_secret</strong>
+                        are available in
+                        <a href='https://merchant.sign2pay.com/merchant_applications' target='_new'>
+                          <strong>Sign2Pay Merchant Application</strong>
+                        </a>
+                        access credentials section.
+                      </span>
+                    </div>
+                    <!-- Redirect URI -->
+                    <div class='form-group'>
+                      <label class='control-label' for='redirect_uri'>Redirect URI</label>
+                      <input class='form-control input-md' id='redirect_uri' name='redirect_uri' required='' type='text'>
+                      <span class='help-block'>
+                        Must match redirect_uri defined in your
+                        <strong>Sign2Pay Merchant Application</strong>
+                      </span>
+                    </div>
+                    <!-- Code -->
+                    <div class='form-group'>
+                      <label class='control-label' for='code'>Code</label>
+                      <input class='form-control input-md' id='code' name='code' required='' type='text'>
+                      <span class='help-block'>
+                        The Authentication Code returned in the previous step when requesting user's permission.
+                      </span>
+                    </div>
+                    <!-- State -->
+                    <div class='form-group'>
+                      <label class='control-label' for='state'>State</label>
+                      <input class='form-control input-md' id='state' name='state' required='' type='text'>
+                    </div>
+                    <!-- Control Buttons -->
+                    <div class='form-group'>
+                      <div class='button btn btn-info' id='send_request_button'>
+                        Send Request
+                      </div>
+                      <button class='btn btn-default' data-dismiss='modal'>
+                        Close
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div class='tab-pane panel-padding fade' id='access_grant_output'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div aria-hidden='true' aria-labelledby='payment_request_modal_title' class='modal fade' id='payment_request_modal' role='dialog' tabindex='-1'>
+        <div class='modal-dialog' role='document'>
+          <div class='modal-content'>
+            <div class='modal-header'>
+              <button aria-label='Close' class='close' data-dismiss='modal'>
+                <span aria-hidden='true'>
+                  &times;
+                </span>
+              </button>
+              <h4 class='modal-title' id='payment_request_modal_title'>
+                Make a
+                <strong>Payment Request</strong>
+              </h4>
+            </div>
+            <div class='modal-body'>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a data-toggle='tab' href='#payment_request_request'>
+                    Request
+                  </a>
+                </li>
+                <li>
+                  <a data-toggle='tab' href='#payment_request_output'>
+                    Response
+                  </a>
+                </li>
+              </ul>
+              <div class='tab-content tab-content-bordered'>
+                <div class='tab-pane panel-padding fade active in' id='payment_request_request'>
+                  <form class='form'>
+                    <!-- Client ID -->
+                    <div class='form-group'>
+                      <label class='control-label' for='client_id'>Client ID</label>
+                      <input class='form-control input-md' id='client_id' name='client_id' required='' type='text'>
+                    </div>
+                    <!-- Client ID -->
+                    <div class='form-group'>
+                      <label class='control-label' for='client_secret'>Client Secret</label>
+                      <input class='form-control input-md' id='client_secret' name='client_secret' required='' type='text'>
+                      <span class='help-block'>
+                        Your
+                        <strong>client_id</strong>
+                        and
+                        <strong>client_secret</strong>
+                        are available in
+                        <a href='https://merchant.sign2pay.com/merchant_applications' target='_new'>
+                          <strong>Sign2Pay Merchant Application</strong>
+                        </a>
+                        access credentials section.
+                      </span>
+                    </div>
+                    <!-- Token -->
+                    <div class='form-group'>
+                      <label class='control-label' for='token'>Token</label>
+                      <input class='form-control input-md' id='code' name='token' required='' type='text'>
+                      <span class='help-block'>
+                        The Access Token you just received
+                      </span>
+                    </div>
+                    <!-- Ref ID -->
+                    <div class='form-group'>
+                      <label class='control-label' for='ref_id'>Ref ID</label>
+                      <input class='form-control input-md' id='state' name='ref_id' placeholder='' required='' type='text'>
+                      <span class='help-block'>
+                        Your unique id for your purchase.
+                      </span>
+                    </div>
+                    <!-- Amount -->
+                    <div class='form-group'>
+                      <label class='control-label' for='amount'>Amount</label>
+                      <input class='form-control input-md' id='amount' name='amount' placeholder='' type='number'>
+                      <span class='help-block'>
+                        Amount of payment being requested in cents.
+                      </span>
+                    </div>
+                    <!-- Control Buttons -->
+                    <div class='form-group'>
+                      <div class='button btn btn-info' id='send_request_button'>
+                        Send Request
+                      </div>
+                      <button class='btn btn-default' data-dismiss='modal'>
+                        Close
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div class='tab-pane panel-padding fade' id='payment_request_output'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id='docs_background'></div>
+    <div class='page-container'>
+      <section class='fixed-header clearfix'>
+        <h1 class='project-name'>
+          <a href='/'>
+            <img src='/images/logo/logo_sign2-258fc4be.svg' width='160'>
+          </a>
+        </h1>
+        <div class='header-nav'>
+          <a class='link' href='https://merchant.sign2pay.com/profile/sign_up' target='_blank'>Sign Up</a>
+          <a class='link' href='https://merchant.sign2pay.com/profile/sign_in' target='_blank'>Login</a>
+        </div>
+      </section>
+      <nav id='main-nav'>
+        <ul id='categories'>
+          <li class='doc_section' data-section='intro'>
+            <a class='overview' href='/'>
+              <span>Getting Started</span>
+            </a>
+          </li>
+          <li class='doc_section' data-section='payments'>
+            <a data-parent='#categories' data-toggle='collapse' href='#payment_pages'>
+              <span>Payments</span>
+            </a>
+            <ul class='pages collapse' id='payment_pages'>
+              <li>
+                <a class='m-commerce' href='/sections/payments/m-commerce/overview.html'>
+                  <span>M-Commerce</span>
+                </a>
+              </li>
+              <li>
+                <a class='pre-approved' href='/sections/payments/pre-approved/overview.html'>
+                  <span>Pre-Approved</span>
+                </a>
+              </li>
+              <li>
+                <a class='subscriptions' href='/sections/payments/subscriptions/overview.html'>
+                  <span>Subscriptions</span>
+                </a>
+              </li>
+              <li>
+                <a class='on-demand' href='/sections/payments/on-demand/overview.html'>
+                  <span>On-Demand</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class='doc_section' data-section='integrations'>
+            <a data-parent='#categories' data-toggle='collapse' href='#quickstart_pages'>
+              <span>Integration Guide</span>
+            </a>
+            <ul class='pages collapse' id='quickstart_pages'>
+              <li class='todo'>
+                <a class='overview' href='/sections/integrations/overview.html'>Overview</a>
+              </li>
+              <li>
+                <a class='registration' href='/sections/integrations/registration.html'>Registration</a>
+              </li>
+              <li>
+                <a class='your-first-application' href='/sections/integrations/your-first-application.html'>Your First Application</a>
+              </li>
+              <li>
+                <a class='client-credentials' href='/sections/integrations/client-credentials.html'>Client Credentials</a>
+              </li>
+              <li>
+                <a class='the-button' href='/sections/integrations/button.html'>The Button</a>
+              </li>
+              <li>
+                <a class='approaches' href='/sections/integrations/approaches.html'>Payment Integration</a>
+              </li>
+              <li>
+                <a class='webhooks' href='/sections/integrations/webhooks.html'>Webhooks</a>
+              </li>
+              <li>
+                <a class='localization' href='/sections/integrations/localization.html'>Localization</a>
+              </li>
+              <li class='todo'>
+                <a class='ux' href='/sections/integrations/ux.html'>User Experience</a>
+              </li>
+              <li>
+                <a class='success' href='/sections/integrations/success.html'>Handling Success</a>
+              </li>
+              <li>
+                <a class='errors' href='/sections/integrations/errors.html'>Handling Errors</a>
+              </li>
+              <li class='todo'>
+                <a class='testing' href='/sections/integrations/testing.html'>Testing</a>
+              </li>
+            </ul>
+          </li>
+          <li class='doc_section todo' data-section='account'>
+            <a data-parent='#categories' data-toggle='collapse' href='#account_pages'>
+              <span>Your Account</span>
+            </a>
+            <ul class='pages collapse' id='account_pages'>
+              <li>
+                <a class='overview' href='/sections/account/overview.html'>Overview</a>
+              </li>
+              <li>
+                <a class='getting-paid' href='/sections/account/getting-paid.html'>Getting Paid</a>
+              </li>
+              <li>
+                <a class='invoicing' href='/sections/account/invoicing.html'>Invoicing</a>
+              </li>
+              <li>
+                <a class='legal-requirements' href='/sections/account/legal-requirements.html'>Legal Requirements</a>
+              </li>
+            </ul>
+          </li>
+          <li class='doc_section' data-section='api'>
+            <a data-parent='#categories' data-toggle='collapse' href='#api_pages'>
+              <span>API Reference</span>
+            </a>
+            <ul class='pages collapse' id='api_pages'>
+              <li>
+                <a class='overview' href='/sections/api/overview.html'>Overview</a>
+              </li>
+              <li>
+                <a class='authorization' href='/sections/api/authorization.html'>Authorization</a>
+              </li>
+              <li>
+                <a class='account' href='/sections/api/account.html'>/accounts</a>
+              </li>
+              <li>
+                <a class='applications' href='/sections/api/applications.html'>/applications</a>
+              </li>
+              <li>
+                <a class='banks' href='/sections/api/banks.html'>/banks</a>
+              </li>
+              <li>
+                <a class='countries' href='/sections/api/countries.html'>/countries</a>
+              </li>
+              <li>
+                <a class='oauth' href='/sections/api/oauth/overview.html'>/oauth</a>
+              </li>
+              <li>
+                <a class='payments' href='/sections/api/payments/overview.html'>/payments</a>
+              </li>
+              <li>
+                <a class='payments' href='/sections/api/payments/refund.html'>/refunds</a>
+              </li>
+              <li>
+                <a class='reports' href='/sections/api/reports/payouts.html'>/reports</a>
+              </li>
+              <li>
+                <a class='sms' href='/sections/api/sms.html'>/sms</a>
+              </li>
+            </ul>
+          </li>
+          <li class='doc_section todo' data-section='oauth'>
+            <a class='overview' href='/sections/oauth/overview.html'>
+              <span>OAuth 2.0</span>
+            </a>
+          </li>
+          <li class='doc_section' data-section='glossary'>
+            <a class='overview' href='/sections/glossary.html'>
+              <span>Glossary</span>
+            </a>
+          </li>
+          <li class='doc_section todo' data-section='support'>
+            <a class='overview' href='/sections/support/overview.html'>
+              <span>Support</span>
+            </a>
+          </li>
+          <li class='doc_section' data-section='faq'>
+            <a class='overview' href='/sections/faq/overview.html'>
+              <span>FAQ</span>
+            </a>
+            <ul class='pages collapse' id='faq_pages'>
+              <li>
+                <a class='overview' href='/sections/faq/overview.html'>Overview</a>
+              </li>
+              <li class='todo'>
+                <a class='merchant' href='/sections/faq/merchant.html'>Merchant</a>
+              </li>
+              <li>
+                <a class='developer' href='/sections/faq/developer.html'>Developer</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <section class='main-content container'>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <h1>Integration</h1>
+            <hr>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <p>The approach of marrying the OAuth 2.0 protocol to sign2pay's secure mobile payments was dubbed internally as Authature.  The Authature protocol supports the standard <a href="https://tools.ietf.org/html/rfc6749#section-4.1">authorization code grant</a> type.</p>
+            <p>In order to complete a purchase, you should implement the flow described below in your application.  For On-Demand payment integration, the flow <em>must</em> include these 3 sequential steps: requesting access permission, obtaining an access token, and requesting the payment.</p>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <ul class='nav nav-tabs' id='uidemo-tabs-default-demo'>
+              <li class='active'>
+                <a data-toggle='tab' href='#request_access'>
+                  1. Requesting Access Permission
+                </a>
+              </li>
+              <li>
+                <a data-toggle='tab' href='#access_grant'>
+                  2. Obtaining Access Token
+                </a>
+              </li>
+              <li>
+                <a data-toggle='tab' href='#payment_request'>
+                  3. Requesting Payment
+                </a>
+              </li>
+            </ul>
+            <div class='tab-content tab-content-bordered'>
+              <div class='tab-pane panel-padding fade active in' id='request_access'>
+                <h3>Request</h3>
+                <p>Authorization happens with or without a signature of your user.</p>
+                <div class='panel-group' id='accordion'>
+                  <div class='panel panel-default'>
+                    <div class='panel-heading'>
+                      <div class='panel-title'>
+                        <a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#authorize-signature'>
+                          <h4>
+                            Obtaining an Authorization Code with your users' signature
+                          </h4>
+                        </a>
+                      </div>
+                      <div class='panel-collapse collapse' id='authorize-signature'>
+                        <div class='panel-body'>
+                          <h3>Obtaining an Authorization Code with your users' signature</h3>
+                          <p>
+                            <strong>
+                              Method:
+                            </strong>
+                            <code>GET</code>
+                          </p>
+                          <p>
+                            <strong>
+                              Authorization URI:
+                            </strong>
+                            <code>      https://app.sign2pay.com/oauth/authorize&#x000A;</code>
+                          </p>
+                          <table class='arguments'>
+                            <thead>
+                              <tr>
+                                <th>Parameter</th>
+                                <th>Required</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td class='param'>client_id</td>
+                                <td class='required yes'>yes</td>
+                                <td class='format'>Number</td>
+                                <td class='description'>The client id issued to your Sign2Pay Client Application.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>redirect_uri</td>
+                                <td class='required yes'>yes</td>
+                                <td class='format'>String</td>
+                                <td class='description'>The uri the user will be redirected to after authorization. Must have the same domain as the application. Must match the redirect_uri specified in the Sign2Pay Merchant Admin application settings.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>scope</td>
+                                <td class='required yes'>yes</td>
+                                <td class='format'>String</td>
+                                <td class='description'>A space separated string list of permission scopes.  They include: payment, preapproval, authenticate, capture.  For on-demand payments, the scope <strong>must</strong> be specified as <strong>payment</strong>.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>state</td>
+                                <td class='required yes'>yes</td>
+                                <td class='format'>String</td>
+                                <td class='description'>A session string that your client uses to maintain state between requests.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>response_type</td>
+                                <td class='required yes'>yes</td>
+                                <td class='format'>String</td>
+                                <td class='description'>Must be specified as <strong>code</strong>.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>amount</td>
+                                <td class='required no'>yes/no</td>
+                                <td class='format'>Integer</td>
+                                <td class='description'>When requesting the <strong>payment</strong> scope, the amount of payment in cents <strong>is</strong> required. Otherwise, it is optional.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>ref_id</td>
+                                <td class='required no'>yes/no</td>
+                                <td class='format'>String (max 35 chars)</td>
+                                <td class='description'>When requesting the <strong>payment</strong> scope, your unique id for your purchase <strong>is</strong> required. Otherwise, it is optional.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>locale</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2 code</a> reflecting the language to render the Sign2Pay UI in.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>meta_data</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>Hash</td>
+                                <td class='description'>Extra optional data attached to a payment.  This is not shown to a customer.  Format must follow meta_data[KEY]=VALUE in the request.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[identifier]<strong>*</strong></td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>The identifier address used to identify the user</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[first_name]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>The user's first name</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[last_name]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>The user's last name</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[mobile]<strong>*</strong></td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>Mobile number for this user including country code (ie: +32484831234)</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[address]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>Street address for this user including house/apt number</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[city]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>City of the user's address</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[postal_code]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>User's postal code</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <strong>* Can be used as an identifier</strong>.
+                          <h4>Example Request URL:</h4>
+                          <pre><code>      https://app.sign2pay.com/oauth/authorize?&#x000A;      client_id=c509fd593742b6b08adf4f0b41a4801c&&#x000A;      response_type=code&&#x000A;      redirect_uri=http%3A%2F%2Fexample.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&&#x000A;      state=8e108029ade0d75a1e134d1404f44325eec53356ae665ba21cba1bf8559f5e8d&&#x000A;      scope=payment&&#x000A;      ux_style=popup&&#x000A;      user_params%5Bidentifier%5D=nick%40sign2pay.com&&#x000A;      user_params%5Bfirst_name%5D=Nick&&#x000A;      user_params%5Blast_name%5D=Lloyd&&#x000A;      amount=1995&&#x000A;      ref_id=5795c838647f84abea6719cb1e15f2ba7&&#x000A;      meta_data%5Bpromo%5D=new_promo&meta_data%5Bcampaign%5D=wintersale&#x000A;</code></pre>
+                          <p>
+                            <a class='btn btn-flat btn-info btn-lg text-slim' href='https://app.sign2pay.com/oauth/authorize?authature_site=app.sign2pay.com&amp;client_id=c509fd593742b6b08adf4f0b41a4801c&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fauthature.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&amp;state=c3ee82dfdd1ede4f938c95504f8284850bad55c5d1df0392c5cc9427c3d1526e&amp;scope=payment&amp;ux_style=popup&amp;user_params%5Bidentifier%5D=nick%40sign2pay.com&amp;user_params%5Bfirst_name%5D=Nick&amp;user_params%5Blast_name%5D=Lloyd&amp;amount=1995&amp;ref_id=5795c838647f84abea6719cb1e15f2ba7ca581b441d2491b899d9ce71779b9ec' target='_blank'>Example Popup</a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='panel panel-default'>
+                    <div class='panel-heading'>
+                      <div class='panel-title'>
+                        <a class='accordion-toggle collapsed' data-parent='#accordion' data-toggle='collapse' href='#authorize-no-signature'>
+                          <h4>
+                            Obtaining an Authorization Code without your users' signature
+                          </h4>
+                        </a>
+                      </div>
+                      <div class='panel-collapse collapse' id='authorize-no-signature'>
+                        <div class='panel-body'>
+                          <h3>Obtaining an Authorization Code without your users' signature</h3>
+                          <p>
+                            <strong>
+                              Method:
+                            </strong>
+                            <code>POST</code>
+                          </p>
+                          <p>
+                            <strong>
+                              Authorization URI:
+                            </strong>
+                            <code>        https://app.sign2pay.com/oauth/no-authorize&#x000A;&#x000A;</code>
+                          </p>
+                          <table class='arguments'>
+                            <thead>
+                              <tr>
+                                <th>Parameter</th>
+                                <th>Required</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td class='param'>client_id</td>
+                                <td class='required yes'>yes</td>
+                                <td class='format'>Number</td>
+                                <td class='description'>The client id issued to your Sign2Pay Client Application.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>redirect_uri</td>
+                                <td class='required yes'>yes</td>
+                                <td class='format'>String</td>
+                                <td class='description'>The uri the user will be redirected to after authorization. Must have the same domain as the application. Must match the redirect_uri specified in the Sign2Pay Merchant Admin application settings.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>scope</td>
+                                <td class='required yes'>yes</td>
+                                <td class='format'>String</td>
+                                <td class='description'>A space separated string list of permission scopes.  They include: payment, preapproval, authenticate, capture.  For on-demand payments, the scope <strong>must</strong> be specified as <strong>payment</strong>.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>state</td>
+                                <td class='required yes'>yes</td>
+                                <td class='format'>String</td>
+                                <td class='description'>A session string that your client uses to maintain state between requests.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>response_type</td>
+                                <td class='required yes'>yes</td>
+                                <td class='format'>String</td>
+                                <td class='description'>Must be specified as <strong>code</strong>.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>amount</td>
+                                <td class='required no'>yes/no</td>
+                                <td class='format'>Integer</td>
+                                <td class='description'>When requesting the <strong>payment</strong> scope, the amount of payment in cents <strong>is</strong> required. Otherwise, it is optional.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>ref_id</td>
+                                <td class='required no'>yes/no</td>
+                                <td class='format'>String (max 35 chars)</td>
+                                <td class='description'>When requesting the <strong>payment</strong> scope, your unique id for your purchase <strong>is</strong> required. Otherwise, it is optional.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>locale</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2 code</a> reflecting the language to render the Sign2Pay UI in.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>meta_data</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>Hash</td>
+                                <td class='description'>Extra optional data attached to a payment.  This is not shown to a customer.  Format must follow meta_data[KEY]=VALUE in the request.</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[email]<strong>*</strong></td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>The email address used to identify the user</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[first_name]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>The user's first name</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[last_name]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>The user's last name</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[mobile]<strong>*</strong></td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>Mobile number for this user including country code (ie: +32484831234)</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[address]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>Street address for this user including house/apt number</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[city]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>City of the user's address</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[postal_code]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>User's postal code</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[national_registry_number]<strong>*</strong></td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>User's national registry number</td>
+                              </tr>
+                              <tr>
+                                <td class='param'>user_params[iban]</td>
+                                <td class='required no'>no</td>
+                                <td class='format'>String</td>
+                                <td class='description'>User's International Bank Account Number (IBAN)</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <strong>* E-mail, Mobile Phone number or National Registry Number can be used as an identifier</strong>.
+                          <br>
+                          <br>
+                          <p>
+                            <button class='btn btn-flat btn-info btn-lg text-slim' data-target='#authroization_code_modal' data-toggle='modal' type='button'>
+                              Generate Authorization Code now!
+                            </button>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p>For on-demand payments, you must include <code>client_id</code>, <code>response_type</code>, <code>redirect_uri</code>, <code>scope</code>, <code>state</code>, <code>amount</code>, and <code>ref_id</code> parameters with the GET request.</p>
+                <p>It is important to note that Sign2Pay employs the idea of <i>Progressive Registration</i>. This means that you can provide as much or as little user detail that you have available at the time, and the Identification portion of the process will request the missing detail. You can provide additonal user detail when building your payment link by passing in the optional user_params object.</p>
+                <div class='step'>
+                  <h3>Response</h3>
+                  <p>Once the user authorizes access, the user is redirected back to the <b>redirect_uri</b> you originally specified.</p>
+                  <p>When the redirect uri represents a native application, the access grant is returned as a JSON object. Otherwise, the authorization code and state is appended to the redirect_uri as shown below.</p>
+                  <p>A successful authorization response will include the <code>code</code> and <code>state</code> params.  It will also include the optional <code>meta_data</code> if it was included in the original request.</p>
+                  <h5>Native Example:</h5>
+                  <pre><code>{&#x000A;  "code" : "829de1eb40385ebdfcc854e2ba94fb96",&#x000A;  "state" : "x3buLJqq3iAx3buLJqq3iA",&#x000A;  "meta_data" : { "promo" : "new_promo", "campaign" : "wintersale" }&#x000A;}</code></pre>
+                  <h5>Web Example:</h5>
+                  <pre><code>https://example.com/oauth/redirect_uri?code=829de1eb40385ebdfcc854e2ba94fb96&state=x3buLJqq3iAx3buLJqq3iA&meta_data%5Bpromo%5D=new_promo&meta_data%5Bcampaign%5D=wintersale&#x000A;</code></pre>
+                  <p>Either way, you'll need the access grant code in order to move onto the next step, exchanging it for an Access Token.</p>
+                  <div class='note note-info'>
+                    The authorization code is short lived - it will expire within 120 seconds from creation.  It must be immediately transferred for an Access Token.
+                  </div>
+                  <div class='note note-danger'>
+                    If there was an error in the authentication code request, your redirect_uri will receive a request containing the error and error_description params for you to parse. You can read more about handling errors <a href="/sections/integrations/errors.html">here</a>.
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class='col-sm-12'>
+                    <div class='step'>
+                      <h3>Next Step</h3>
+                      <a data-toggle='tab' href='#access_grant'>
+                        Obtaining an Access Token
+                        <span class='fa fa-chevron-right'></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='tab-pane panel-padding fade' id='access_grant'>
+                <h3>Exchanging Authentication Code for an Access Token</h3>
+                <p>Now that you have the Authorization Code, you'll exchange it for an Access Token. This is done by sending an authenticated POST request to the exchange endpoint.</p>
+                <p>
+                  <strong>
+                    Method:
+                  </strong>
+                  <code>POST</code>
+                </p>
+                <p>
+                  <strong>
+                    URI:
+                  </strong>
+                  <code>      https://app.sign2pay.com/oauth/token&#x000A;</code>
+                </p>
+                <p>
+                  <strong>
+                    Authentication:
+                  </strong>
+                  <code>      Authorization: Basic [Base64.encoded CLIENT_ID:CLIENT_SECRET]&#x000A;</code>
+                </p>
+                <p>The requirements for exchanging your Authentication Code for an Access Token are listed below.</p>
+                <table class='arguments'>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Required</th>
+                      <th>Type</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class='param'>client_id</td>
+                      <td class='required yes'>yes</td>
+                      <td class='format'>Number</td>
+                      <td class='description'>The client id issued to your Sign2Pay Client Application.</td>
+                    </tr>
+                    <tr>
+                      <td class='param'>code</td>
+                      <td class='required yes'>yes</td>
+                      <td class='format'>String</td>
+                      <td class='description'>The Authentication Code returned in the previous step when requesting user's permission.</td>
+                    </tr>
+                    <tr>
+                      <td class='param'>state</td>
+                      <td class='required yes'>yes</td>
+                      <td class='format'>String</td>
+                      <td class='description'>The session string that your client sent with the original Authorization Request.</td>
+                    </tr>
+                    <tr>
+                      <td class='param'>redirect_uri</td>
+                      <td class='required yes'>yes</td>
+                      <td class='format'>String</td>
+                      <td class='description'>The uri the user will be redirected to after payment.  Must have the same domain as the application. Must match the redirect_uri specified in the Sign2Pay Merchant Admin application settings.</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h4>Example Request Header:</h4>
+                <pre><code>      Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwNOM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=&#x000A;      Content-Type: application/x-www-form-urlencoded&#x000A;</code></pre>
+                <div class='note note-info'>The <a href='/sections/api/authorization.html'>Authorization: Basic authorization header</a> is generated through a Base64 encoding of <code>CLIENT_ID, CLIENT_SECRET</code> per RFC 2617. You can use <a href="https://www.base64encode.org/">https://www.base64encode.org/</a> to see how it should be encoded.</div>
+                <h4>Example Request Body:</h4>
+                <pre><code>      client_id=c509fd593742b6b08adf4f0b41a4801c&&#x000A;      redirect_uri=http%3A%2F%2Fexample.com%2Foauth%2Fcallback%2Fc509fd593742b6b08adf4f0b41a4801c&&#x000A;      code=829de1eb40385ebdfcc854e2ba94fb96&&#x000A;      state=x3buLJqq3iAx3buLJqq3iA&#x000A;</code></pre>
+                <div class='step'>
+                  <h3>Response</h3>
+                  <p>As this request is server side only, the Access Token is returned as a JSON object.</p>
+                  <p>Included within the Access Token object are some additonal user and account details that you may find useful for display within your own application.</p>
+                  <p>It is important to note that the token attribute is directly related to the account object as this is the account the user has granted you permission to use.</p>
+                  <h4>Example Response:</h4>
+                  <pre><code>      {&#x000A;        "access_token":&#x000A;          {&#x000A;            "token": "70ae0833466bacd744e68e38ae4ace70a7a5ad1ef302c406a35bec227abf96f6",&#x000A;            "type": "bearer",&#x000A;            "scopes": "payment",&#x000A;            "user": {&#x000A;              "first_name": "nick",&#x000A;              "last_name": "lloyd",&#x000A;              "identifier": "nick@sign2pay.com"&#x000A;            },&#x000A;            "account": {&#x000A;              "masked_iban": "************1437",&#x000A;              "primary": true,&#x000A;              "uid": "3150d493acabcb319d395037de2f03f9",&#x000A;              "bank": {&#x000A;                "swift": "KREDBEBB",&#x000A;                "country_code": "BE",&#x000A;                "logo": "https://s2p.s3-eu-west-1.amazonaws.com/banks/BE/KREDBEBB.png?1429107098",&#x000A;                "has_logo": true,&#x000A;                "bank_name": "KBC BANK"&#x000A;              }&#x000A;            },&#x000A;            "expires": "2015-09-16T11:33:06.883+02:00"&#x000A;          }&#x000A;        }&#x000A;</code></pre>
+                  <div class='note note-info'>
+                    When the scope is for "payment", and not "preapproval", the access token is short lived - it will expire in 2 minutes from creation, and can only be used for a single payment.
+                  </div>
+                  <div class='note note-danger'>
+                    If there was an error in the Access Token request, your redirect_uri will receive a request containing the error and error_description params for you to parse. You can read more about handling errors <a href="/sections/integrations/errors.html">here</a>.
+                  </div>
+                  <button class='btn btn-flat btn-info btn-lg text-slim' data-target='#access_grant_modal' data-toggle='modal' type='button'>
+                    Generate Access Grant now!
+                  </button>
+                </div>
+                <div class='row'>
+                  <div class='col-sm-12'>
+                    <div class='step'>
+                      <h3>Next Step</h3>
+                      <a data-toggle='tab' href='#payment_request'>
+                        Requesting Payment
+                        <span class='fa fa-chevron-right'></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='tab-pane panel-padding fade' id='payment_request'>
+                <h3>Making a Payment Request</h3>
+                <p>For On-Demand Payments, you'll make the payment request immediately after you receive the Access Token.  This is done by sending an authenticated POST request to the payment capture endpoint.</p>
+                <p>
+                  <strong>
+                    Method:
+                  </strong>
+                  <code>POST</code>
+                </p>
+                <p>
+                  <strong>
+                    URI:
+                  </strong>
+                  <code>      https://app.sign2pay.com/api/v2/payment/authorize/capture&#x000A;</code>
+                </p>
+                <p>
+                  <strong>
+                    Authentication:
+                  </strong>
+                  <code>      Authorization: Basic [encoded credentials CLIENT_ID, CLIENT_SECRET]&#x000A;</code>
+                </p>
+                <p>The requirements for making a payment request are listed below.</p>
+                <table class='arguments'>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Required</th>
+                      <th>Type</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class='param'>client_id</td>
+                      <td class='required yes'>yes</td>
+                      <td class='format'>Number</td>
+                      <td class='description'>The client ID issued to your Sign2Pay Client Application.</td>
+                    </tr>
+                    <tr>
+                      <td class='param'>amount</td>
+                      <td class='required no'>yes</td>
+                      <td class='format'>Integer</td>
+                      <td class='description'>Amount of payment being requested <strong>in cents</strong>.</td>
+                    </tr>
+                    <tr>
+                      <td class='param'>ref_id</td>
+                      <td class='required no'>yes</td>
+                      <td class='format'>String</td>
+                      <td class='description'>Your unique id for your purchase.</td>
+                    </tr>
+                    <tr>
+                      <td class='param'>token</td>
+                      <td class='required no'>yes</td>
+                      <td class='format'>String</td>
+                      <td class='description'>The Access Token you just received</td>
+                    </tr>
+                    <tr>
+                      <td class='param'>meta_data</td>
+                      <td class='required no'>no</td>
+                      <td class='format'>Hash</td>
+                      <td class='description'>Extra optional data attached to a payment.  This is not shown to a customer.  Format must follow meta_data[KEY]=VALUE in the request.</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h4>Example Request Header:</h4>
+                <pre><code>      Authorization: Basic YzUwOWZkNTkzNzQyYjZiMDhhZGY0ZjBiNDFhNDgwNOM6YTVjMWQyN2U0MGEzMGRkNjA2OTgyNTc4MWEyYWJlNGY=&#x000A;      Content-Type: application/x-www-form-urlencoded&#x000A;</code></pre>
+                <div class='note note-info'>The <a href='/sections/api/authorization.html'>Authorization: Basic authorization header</a> is generated through a Base64 encoding of <code>CLIENT_ID, CLIENT_SECRET</code> per RFC 2617. You can use <a href="https://www.base64encode.org/">https://www.base64encode.org/</a> to see how it should be encoded.</div>
+                <h4>Example Request Body:</h4>
+                <pre><code>      client_id=c509fd593742b6b08adf4f0b41a4801c&&#x000A;      token=bb1cd6ce37d093eb2e8c32e7ec9847b3058112b92d3868371ae5426c463dad0d&&#x000A;      ref_id=123654123&&#x000A;      amount=1692&&#x000A;      meta_data%5Bpromo%5D=new_promo&meta_data%5Bcampaign%5D=wintersale&#x000A;</code></pre>
+                <div class='step'>
+                  <h3>Response</h3>
+                  <p>A successful Payment request returns a JSON object containing the "purchase_id".</p>
+                  <h5>Example Response:</h5>
+                  <pre><code>      {&#x000A;        "purchase_id": "55f980b6e6db99dba9000001"&#x000A;      }&#x000A;</code></pre>
+                  <p>Since the payment process is now complete, the user will be redirected back to your application through the URL specified as your application's redirect_uri.</p>
+                  <p>This is your opportunity to update your local object (purchase, order, payment or whatever your model is named) as "paid", and redirect your user to your next step such as a "Thanks for your purchase" page.</p>
+                  <div class='note note-info'>
+                    Don't forget this is happening server side, so you'll want to pass along the message if need be to your iOS client, or simply redirect your user in your web application.
+                  </div>
+                  <div class='note note-danger'>
+                    If there was an error in the payment request, your redirect_uri will receive a request containing the error and error_description params for you to parse. You can read more about handling errors <a href="/sections/integrations/errors.html">here</a>.
+                  </div>
+                  <button class='btn btn-flat btn-info btn-lg text-slim' data-target='#payment_request_modal' data-toggle='modal' type='button'>
+                    Try Payment Request now!
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          s2p.sectionClass = "integrations";
+          s2p.pageClass    = "approaches";
+        </script>
+        <style>
+          /* line 1, (__TEMPLATE__) */
+          .token_steps {
+            margin-bottom: 1em; }
+            /* line 3, (__TEMPLATE__) */
+            .token_steps .token_step {
+              width: 100%;
+              display: block;
+              border-radius: 4px;
+              text-align: center; }
+          
+          /* line 11, (__TEMPLATE__) */
+          .approach .panel {
+            padding: 0.5em; }
+            /* line 13, (__TEMPLATE__) */
+            .approach .panel .panel-body {
+              border-radius: 4px; }
+          /* line 17, (__TEMPLATE__) */
+          .approach .heading {
+            font-size: 1.4em;
+            color: #1486BA;
+            text-align: center; }
+          /* line 23, (__TEMPLATE__) */
+          .approach .big-ass-icon {
+            text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+            color: #d4dbdf;
+            line-height: 160px;
+            font-size: 160px; }
+            /* line 29, (__TEMPLATE__) */
+            .approach .big-ass-icon.web {
+              line-height: 160px;
+              font-size: 100px; }
+        </style>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <div class='support-content'>
+              <hr>
+              <h4>Stuck on Something?</h4>
+              <p>
+                Be sure to check our
+                <a href='/sections/faq/overview.html'>FAQs</a>,
+                <a href='/sections/faq/overview.html'>Support</a>,
+                or
+                <a href='mailto:support@sign2pay.com?subject=Give+me+a+Hand?'>Contact Us</a>
+                directly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src='/javascripts/lib/jquery-2.1.4.min-fe014d28.js' type='text/javascript'></script>
+    <script src='/javascripts/lib/bootstrap.min-3ae6d04e.js' type='text/javascript'></script>
+    <script src='/javascripts/lib/button-c056f64e.js' type='text/javascript'></script>
+    <script src='/javascripts/lib/intlTelInput-7005438f.js' type='text/javascript'></script>
+    <script src='/javascripts/lib/libphonenumber-76c2afa7.js' type='text/javascript'></script>
+    <script src="/javascripts/main-f6c75ca9.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      
+      ga('create', 'UA-48459746-3', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
